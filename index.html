@@ -1,0 +1,4654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie Player</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: sans-serif;
+    }
+    h1 {
+      color: #fff;
+      font-size: 1rem;
+      padding: 10px;
+      opacity: 0.6;
+    }
+    .player-wrap {
+      width: 100%;
+      max-width: 960px;
+      position: relative;
+    }
+    video {
+      width: 100%;
+      max-height: 90vh;
+      background: #000;
+      display: block;
+    }
+    video::cue {
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 1.1em;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="player-wrap">
+    <video id="player" controls preload="metadata" crossorigin="anonymous">
+      <source src="https://bcdn.hakunaymatata.com/resource/h265/ee6e82f04e8449935ab67a6b46e00801.mp4?sign=d1c2b226bb577ae854f3482012b69c63&t=1782099471" type="video/mp4" />
+      Your browser does not support video.
+    </video>
+  </div>
+
+  <script>
+    const vttContent = `WEBVTT
+
+00:00:00.000 --> 00:00:03.240
+A few days later
+
+00:00:30.000 --> 00:00:32.000
+What is the meaning of this?
+
+00:00:54.000 --> 00:00:59.000
+In Brazil, in the 30th year of the Olympics, in the 10 years of India's independence,
+
+00:00:59.000 --> 00:01:02.000
+Kedra Kedasha's Prime Minister, Vishnukant Tiwari,
+
+00:01:02.000 --> 00:01:04.000
+Deepra Asandra,
+
+00:01:04.000 --> 00:01:06.000
+in the 10 years of India's independence,
+
+00:01:20.000 --> 00:01:23.000
+Kedra Kedashayakamantri Vishnukam Tiwari
+
+00:01:23.000 --> 00:01:25.000
+has committed suicide
+
+00:01:25.000 --> 00:01:27.000
+At Kalakatha Sports Headquarters
+
+00:01:27.000 --> 00:01:29.000
+Indian Olympic Committee Committee
+
+00:01:29.000 --> 00:01:31.000
+has ordered the Minister to bring
+
+00:01:31.000 --> 00:01:33.000
+a suicide note in the place of punishment
+
+00:01:33.000 --> 00:01:36.000
+as the MP for the game
+
+00:01:50.000 --> 00:01:53.000
+Congratulations, sir. This time, we won two medals.
+
+00:01:54.000 --> 00:01:55.000
+Sit.
+
+00:01:56.000 --> 00:01:57.000
+You should be ashamed.
+
+00:02:02.000 --> 00:02:06.000
+If you want to see India's place in the medals table, you have to bow down.
+
+00:02:10.000 --> 00:02:13.000
+Now, bow down and watch us.
+
+00:02:13.000 --> 00:02:17.000
+When are we going to raise our heads and look at the world?
+
+00:02:28.000 --> 00:02:31.000
+For a country with a population of 130 crores,
+
+00:02:32.000 --> 00:02:33.000
+two medals?
+
+00:02:34.000 --> 00:02:38.000
+How many people did we need to win both?
+
+00:02:38.000 --> 00:02:40.000
+We needed so many people.
+
+00:02:40.000 --> 00:02:43.000
+We are giving so much budget to sports.
+
+00:02:44.000 --> 00:02:46.000
+We are giving so many academies.
+
+00:02:47.000 --> 00:02:49.000
+Then what is going wrong?
+
+00:02:50.000 --> 00:02:51.000
+Sir.
+
+00:02:52.000 --> 00:02:57.000
+We are giving proper training to all the people who came to us.
+
+00:02:58.000 --> 00:03:00.000
+We are giving proper facilities.
+
+00:03:00.000 --> 00:03:03.000
+By the way, who is interested in the order in this generation?
+
+00:03:04.000 --> 00:03:06.000
+What is your favorite game?
+
+00:03:06.000 --> 00:03:08.000
+One of them is a temple run
+
+00:03:09.000 --> 00:03:11.000
+The other one is a candy crush
+
+00:03:12.000 --> 00:03:14.000
+The place where the game was played
+
+00:03:15.000 --> 00:03:16.000
+Half way through
+
+00:03:17.000 --> 00:03:19.000
+Once you get there, on the ground
+
+00:03:19.000 --> 00:03:21.000
+Who is going there, sir?
+
+00:03:23.000 --> 00:03:25.000
+What is your son doing, Mr. Paiswal?
+
+00:03:25.000 --> 00:03:27.000
+In Mumbai IIT
+
+00:03:27.000 --> 00:03:28.000
+Electronics
+
+00:03:28.000 --> 00:03:29.000
+5 years, sir
+
+00:03:29.000 --> 00:03:31.000
+What are your children doing?
+
+00:03:31.000 --> 00:03:33.000
+My daughter is an MBBS student in Delhi
+
+00:03:33.000 --> 00:03:34.000
+My son is a master in the US, sir
+
+00:03:36.000 --> 00:03:40.600
+We don't play games, we play with our children.
+
+00:03:42.400 --> 00:03:47.800
+But we will decide the future of a game here.
+
+00:03:48.200 --> 00:03:48.800
+Come.
+
+00:03:51.400 --> 00:03:53.400
+What I want is not silence.
+
+00:03:53.800 --> 00:03:58.000
+If you don't come with a solution by the next meeting,
+
+00:03:58.600 --> 00:04:01.000
+we will close all the academies in the country.
+
+00:04:01.600 --> 00:04:04.200
+We will give those lands to the corporate lease.
+
+00:04:04.200 --> 00:04:09.200
+I will transfer the sports budget to defense and agriculture.
+
+00:04:13.200 --> 00:04:19.200
+Mr. Baiswal, losing a game is not just losing a game,
+
+00:04:20.200 --> 00:04:22.200
+it is losing the entire country.
+
+00:04:30.200 --> 00:04:32.200
+This village has brought medals.
+
+00:04:34.200 --> 00:05:04.200
+One, two, three, four, five, six, seven, eight, nine, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten, ten
+
+00:05:04.200 --> 00:05:06.200
+Come on, let's go.
+
+00:05:34.200 --> 00:05:35.200
+What is happening?
+
+00:05:35.200 --> 00:05:36.200
+Sports selection, sir.
+
+00:05:36.200 --> 00:05:37.200
+So many people?
+
+00:05:37.200 --> 00:05:38.200
+Yes, sir.
+
+00:06:03.200 --> 00:06:06.200
+The boys in this district are crazy about games, sir.
+
+00:06:06.200 --> 00:06:08.200
+This is the Kavadi Selection, sir.
+
+00:06:11.200 --> 00:06:13.200
+All of you are made in Cricket Selection, sir.
+
+00:06:13.200 --> 00:06:14.200
+Name?
+
+00:06:14.200 --> 00:06:15.200
+Siva, sir.
+
+00:06:15.200 --> 00:06:16.200
+Age?
+
+00:06:17.200 --> 00:06:18.200
+Okay.
+
+00:06:18.200 --> 00:06:19.200
+Your name?
+
+00:06:19.200 --> 00:06:20.200
+Appanna Tendulkar, sir.
+
+00:06:20.200 --> 00:06:21.200
+Age?
+
+00:06:21.200 --> 00:06:22.200
+19, sir.
+
+00:06:22.200 --> 00:06:23.200
+Appanna?
+
+00:06:23.200 --> 00:06:24.200
+Is your favourite player Tendulkar?
+
+00:06:24.200 --> 00:06:25.200
+Yes, sir.
+
+00:06:25.200 --> 00:06:26.200
+That's why I named him.
+
+00:06:26.200 --> 00:06:27.200
+Good.
+
+00:06:28.200 --> 00:06:29.200
+Name?
+
+00:06:29.200 --> 00:06:30.200
+Venkat, sir.
+
+00:06:30.200 --> 00:06:31.200
+Age?
+
+00:06:31.200 --> 00:06:32.200
+19, sir.
+
+00:06:33.200 --> 00:06:34.200
+16, sir.
+
+00:06:34.200 --> 00:06:36.200
+My favorite player is Dhoni, sir.
+
+00:06:37.200 --> 00:06:38.200
+Name?
+
+00:06:38.200 --> 00:06:39.200
+Govind, sir.
+
+00:06:39.200 --> 00:06:40.200
+Age?
+
+00:06:41.200 --> 00:06:42.200
+Okay.
+
+00:06:42.200 --> 00:06:43.200
+Govind.
+
+00:06:43.200 --> 00:06:44.200
+Sir.
+
+00:06:44.200 --> 00:06:45.200
+Don't you have a favorite cricketer?
+
+00:06:45.200 --> 00:06:46.200
+I do, sir.
+
+00:06:46.200 --> 00:06:49.200
+My favorite cricketer is Peddi, sir.
+
+00:06:49.200 --> 00:06:50.200
+Peddi?
+
+00:06:50.200 --> 00:06:51.200
+Yes, sir.
+
+00:06:51.200 --> 00:06:52.200
+Peddi.
+
+00:06:57.200 --> 00:06:58.200
+My name is Vishwa.
+
+00:06:58.200 --> 00:07:00.200
+My favorite player is Tara Singh, sir.
+
+00:07:00.200 --> 00:07:04.200
+My name is Vasu. My favorite player is Petty.
+
+00:07:08.200 --> 00:07:09.200
+Petty?
+
+00:07:18.200 --> 00:07:21.200
+My name is Ran Kumar. My favorite player is Petty.
+
+00:07:24.200 --> 00:07:26.200
+My favorite player is Petty.
+
+00:08:00.200 --> 00:08:01.200
+Hello.
+
+00:08:14.200 --> 00:08:16.200
+Come on, let's go.
+
+00:08:20.200 --> 00:08:22.200
+No matter which kid you ask,
+
+00:08:23.200 --> 00:08:25.200
+your favorite play will change.
+
+00:08:25.200 --> 00:08:27.200
+But your favorite play is not changing.
+
+00:08:28.200 --> 00:08:29.200
+The elder one.
+
+00:08:30.200 --> 00:08:33.200
+In this area, is there any god's name?
+
+00:08:34.200 --> 00:08:37.200
+Even the name you want is the elder one, sir.
+
+00:08:39.200 --> 00:08:42.200
+Yes, when our elder one hit six,
+
+00:08:42.200 --> 00:08:44.200
+We made sure he didn't get hit here.
+
+00:08:45.700 --> 00:08:48.700
+If you hit from this ground, you'll get hit right here.
+
+00:08:48.700 --> 00:08:52.700
+Sir, he didn't hit from this ground.
+
+00:08:53.700 --> 00:08:55.200
+That ground.
+
+00:09:00.200 --> 00:09:02.700
+He hit from that ground, sir.
+
+00:09:05.700 --> 00:09:08.200
+I've seen many games.
+
+00:09:09.200 --> 00:09:11.700
+But I've never seen anyone play so many games.
+
+00:09:12.200 --> 00:09:16.200
+He's the only one who has played so many games.
+
+00:09:17.200 --> 00:09:20.200
+In a village like this, why?
+
+00:09:21.200 --> 00:09:24.200
+I bought all the games I needed.
+
+00:09:25.200 --> 00:09:28.200
+In this area, a grown man is not God in the temple, sir.
+
+00:09:28.200 --> 00:09:30.200
+He is God on the ground.
+
+00:09:34.200 --> 00:09:38.200
+I want to know about a grown man once.
+
+00:09:38.200 --> 00:09:42.200
+If you want to know about Petty Goon, you can't go in a car.
+
+00:09:42.200 --> 00:09:44.200
+You have to walk on your feet.
+
+00:09:48.200 --> 00:09:49.200
+Let's go.
+
+00:09:51.200 --> 00:09:53.200
+Should we go across the hill?
+
+00:09:57.200 --> 00:10:00.200
+On the ground of EJNAR, which is run by Pruthu Naidu Kaur,
+
+00:10:00.200 --> 00:10:03.200
+due to lack of respect for wrestling,
+
+00:10:03.200 --> 00:10:05.200
+cricket players from all over the world
+
+00:10:05.200 --> 00:10:08.200
+have come here to play.
+
+00:10:12.200 --> 00:10:15.200
+In the last 10-15 years,
+
+00:10:15.200 --> 00:10:18.200
+cricket players have been playing like hens.
+
+00:10:18.200 --> 00:10:21.200
+Hens have also come very far.
+
+00:10:27.200 --> 00:10:35.200
+What is that Ram Bujjanna? You changed the name of the Royal Enfield, why did you call it Ram Bujjanna?
+
+00:10:35.200 --> 00:10:43.200
+I bought it before I sold it. After I bought it, it is our name. Move aside.
+
+00:10:44.200 --> 00:10:48.200
+Ram Bujjanna is not my name. His real name is Seshanna.
+
+00:10:48.200 --> 00:10:49.200
+Okay.
+
+00:10:49.200 --> 00:10:54.200
+So far, have you ever seen Yalapaka on the yellow and red flags?
+
+00:10:54.200 --> 00:10:59.200
+But here, Yalapaka is on the flag of a game!
+
+00:10:59.200 --> 00:11:01.200
+On the flag of a game!
+
+00:11:03.200 --> 00:11:05.200
+Which song is it?
+
+00:11:05.200 --> 00:11:07.200
+In the 25th!
+
+00:11:10.200 --> 00:11:12.200
+One rupee!
+
+00:11:12.200 --> 00:11:14.200
+One hundred rupees!
+
+00:11:16.200 --> 00:11:18.200
+One hundred!
+
+00:11:20.200 --> 00:11:22.200
+Bhoopili Pada
+
+00:11:26.200 --> 00:11:28.200
+This is Abhujur Pada
+
+00:11:30.200 --> 00:11:32.200
+1 rupee
+
+00:11:32.200 --> 00:11:34.200
+1 time, 2 times
+
+00:11:34.200 --> 00:11:36.200
+3 times
+
+00:11:42.200 --> 00:11:44.200
+What happened Bhoopili?
+
+00:11:44.200 --> 00:11:46.200
+Why are you so excited?
+
+00:11:46.200 --> 00:11:47.200
+What are we going to do, bro?
+
+00:11:47.700 --> 00:11:49.200
+If you think you've won,
+
+00:11:49.200 --> 00:11:51.200
+you can go with Patrick in our 3rd act.
+
+00:11:51.200 --> 00:11:52.200
+If you think you've won, you can go with Patrick in our 3rd act.
+
+00:11:56.200 --> 00:12:00.200
+After singing the song of Vijaynagar, why are you shouting at the crowd?
+
+00:12:00.200 --> 00:12:02.200
+Vijaynagar is a great place.
+
+00:12:10.200 --> 00:12:12.200
+Why are you singing about Vijaynagar?
+
+00:12:12.200 --> 00:12:14.200
+We are our mom.
+
+00:12:19.200 --> 00:12:23.200
+Our boss is here.
+
+00:12:26.200 --> 00:12:28.200
+Wow!
+
+00:12:54.200 --> 00:13:01.200
+If he has a player who can score 6-6 to 6 balls, we have a fast bowler, Thadari Amaroomus.
+
+00:13:24.200 --> 00:13:26.200
+Come on, let's go.
+
+00:13:28.200 --> 00:13:29.200
+Let's go.
+
+00:13:52.200 --> 00:13:54.200
+The match is over.
+
+00:14:18.200 --> 00:14:19.660
+It's all going to be ruined.
+
+00:14:19.740 --> 00:14:22.360
+Where did he go without seeing me?
+
+00:14:22.440 --> 00:14:24.320
+He's going to get into trouble again.
+
+00:14:24.400 --> 00:14:26.700
+He's going to lose everything.
+
+00:14:26.780 --> 00:14:28.160
+Why are you talking to me?
+
+00:14:28.240 --> 00:14:29.860
+Hey, he's coming.
+
+00:14:29.940 --> 00:14:30.860
+Hey, you!
+
+00:14:48.200 --> 00:14:50.200
+This is the first time I've seen this kind of music in my life.
+
+00:14:50.200 --> 00:14:52.200
+I've never seen this kind of music in my life.
+
+00:15:12.200 --> 00:15:16.200
+The winner of the 6-6 match is...
+
+00:15:16.200 --> 00:15:17.200
+...Ramu!
+
+00:15:18.200 --> 00:15:20.200
+...Malakannu!
+
+00:15:23.200 --> 00:15:26.200
+Will you give 6-6 to 6 guys?
+
+00:15:26.200 --> 00:15:28.200
+How much will you get?
+
+00:15:42.200 --> 00:15:43.200
+Hey! Hey! Hey!
+
+00:15:55.200 --> 00:15:56.200
+Hey! Hey!
+
+00:16:11.200 --> 00:16:14.200
+I can show you your place
+
+00:16:17.200 --> 00:16:19.200
+That game is my pride
+
+00:16:20.200 --> 00:16:26.200
+Look man, our touch singer Ganga will be there for you too
+
+00:17:11.200 --> 00:17:13.200
+If you don't come, I'll kill you.
+
+00:17:37.200 --> 00:17:39.200
+Hey, don't run away from me.
+
+00:17:39.200 --> 00:17:40.200
+Tell me.
+
+00:17:40.200 --> 00:17:42.200
+The winning shot is mine.
+
+00:17:42.200 --> 00:17:43.200
+What?
+
+00:17:44.200 --> 00:17:46.200
+The one who hit the ditch.
+
+00:17:46.200 --> 00:17:47.200
+The one who hit the ditch?
+
+00:17:51.200 --> 00:17:53.200
+The winning shot is mine.
+
+00:17:56.200 --> 00:17:57.200
+Thank you.
+
+00:18:07.200 --> 00:18:10.200
+And the winner of the 5th round is...
+
+00:18:10.200 --> 00:18:12.200
+Kelmiteshwara!
+
+00:18:37.200 --> 00:19:07.200
+Come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me, come to me
+
+00:19:07.200 --> 00:19:09.200
+Hey! Hey! Hey! Hey!
+
+00:19:09.200 --> 00:19:11.200
+Hey! Hey! Hey!
+
+00:19:33.200 --> 00:19:35.200
+Hey! Hey!
+
+00:20:05.200 --> 00:20:07.200
+Come on, let's go.
+
+00:20:31.200 --> 00:20:37.200
+Sir, if you sit and play, 10 tons of food won't get digested, do you know that?
+
+00:20:37.200 --> 00:20:40.200
+Not even there. That's the problem.
+
+00:20:40.200 --> 00:20:45.200
+If there is a problem, the whole game will be ruined, isn't it?
+
+00:20:46.200 --> 00:20:51.200
+Sir, you don't even have the white flesh around you.
+
+00:20:51.200 --> 00:20:54.200
+If this is the case, I won't be able to play with you.
+
+00:20:54.200 --> 00:20:58.200
+I know how to play and how to work.
+
+00:20:58.200 --> 00:21:01.680
+I have only one job to do and only one life to live.
+
+00:21:01.920 --> 00:21:03.920
+Why do you want to live so long?
+
+00:21:04.440 --> 00:21:07.240
+You can do anything when you have these four.
+
+00:21:07.520 --> 00:21:08.920
+What are you waiting for?
+
+00:21:09.160 --> 00:21:10.160
+Go on.
+
+00:21:12.480 --> 00:21:13.160
+Tell me.
+
+00:21:13.240 --> 00:21:15.240
+Yesterday was like yesterday.
+
+00:21:15.320 --> 00:21:20.320
+If tomorrow is there, why did you kill me today?
+
+00:21:20.880 --> 00:21:24.520
+If I had to tie your son to your father's lap,
+
+00:21:24.600 --> 00:21:27.600
+what would you do?
+
+00:21:28.200 --> 00:21:31.880
+If it's time to change your mind...
+
+00:21:31.920 --> 00:21:35.240
+Why do you have to tie the knot?
+
+00:21:35.280 --> 00:21:39.480
+You change your entire life and come to me...
+
+00:22:28.200 --> 00:22:31.200
+You are the hero of my life
+
+00:22:55.200 --> 00:23:00.200
+Sir, he is the only one who can help us out.
+
+00:23:01.200 --> 00:23:05.200
+He is the only one who can help us out.
+
+00:23:09.200 --> 00:23:11.200
+There are 20 people in Vijayanagara.
+
+00:23:11.200 --> 00:23:12.200
+Sir.
+
+00:23:12.200 --> 00:23:13.200
+Come here.
+
+00:23:14.200 --> 00:23:16.200
+There are 20 people in your team.
+
+00:23:17.200 --> 00:23:19.200
+Sir, there are 20 people.
+
+00:23:19.200 --> 00:23:23.200
+Hey, you've come alone. Where's your wife?
+
+00:23:24.200 --> 00:23:26.200
+She's on the phone for a few days.
+
+00:23:26.200 --> 00:23:28.200
+We'll take her along. Go away.
+
+00:23:28.200 --> 00:23:30.200
+My wife is also a mad woman.
+
+00:23:31.200 --> 00:23:32.200
+She came to our house.
+
+00:23:33.200 --> 00:23:34.200
+Yes, sir.
+
+00:23:36.200 --> 00:23:38.200
+She did all the work in this village.
+
+00:23:38.200 --> 00:23:40.200
+When she went home for a few days,
+
+00:23:40.200 --> 00:23:42.200
+she got her wife married.
+
+00:23:43.200 --> 00:23:45.200
+She was very happy.
+
+00:23:47.200 --> 00:23:50.200
+He is a very good worker.
+
+00:23:57.200 --> 00:23:59.200
+Ask him to tie you up.
+
+00:23:59.200 --> 00:24:03.200
+Your son is not fit to be a judge.
+
+00:24:03.200 --> 00:24:05.200
+Don't say like that, sir.
+
+00:24:05.200 --> 00:24:07.200
+He is beating up people.
+
+00:24:07.200 --> 00:24:09.200
+I am also beating up people.
+
+00:24:09.200 --> 00:24:11.200
+He has worked for so many hours.
+
+00:24:11.200 --> 00:24:13.200
+I have also worked for so many hours.
+
+00:24:13.200 --> 00:24:15.200
+What is your problem?
+
+00:24:15.200 --> 00:24:17.200
+I don't know what to do now.
+
+00:24:17.200 --> 00:24:19.200
+Give me Rs. 50,000.
+
+00:24:19.200 --> 00:24:21.200
+I'll give you Rs. 60,000.
+
+00:24:23.200 --> 00:24:25.200
+Hey, don't beat me.
+
+00:24:27.200 --> 00:24:29.200
+I'm not a beggar.
+
+00:24:37.200 --> 00:24:39.200
+I'm a beggar.
+
+00:24:43.200 --> 00:24:48.200
+We have to save our labors.
+
+00:24:50.200 --> 00:24:52.200
+What do you mean by labors, sir?
+
+00:24:52.200 --> 00:24:56.200
+That's why we have to do the work that no one else does.
+
+00:25:02.200 --> 00:25:04.200
+We don't have the right to do the work.
+
+00:25:04.200 --> 00:25:06.200
+We don't have the right to do it, sir.
+
+00:25:06.200 --> 00:25:10.200
+We are all world-schoolers who work for money, sir.
+
+00:25:10.200 --> 00:25:21.200
+Sir, we can buy the clothes we wear and the things we use at home in the second hand shop.
+
+00:25:25.200 --> 00:25:30.200
+We can buy anything with money. We have to buy everything with money.
+
+00:25:34.200 --> 00:25:38.200
+We are used to buying things with 2 rupees.
+
+00:25:38.200 --> 00:26:08.200
+Come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come
+
+00:26:08.200 --> 00:26:13.200
+Sir, since he is a Kondakka, he is calling you from Kondakka
+
+00:26:27.200 --> 00:26:31.200
+Sir, be careful
+
+00:26:31.200 --> 00:26:34.200
+Sir, I am fine.
+
+00:26:38.200 --> 00:26:42.200
+Sir, there are few people in the country who consider themselves leaders.
+
+00:26:43.200 --> 00:26:45.200
+But there are no such people in our village.
+
+00:26:46.200 --> 00:26:47.200
+What can we do?
+
+00:26:48.200 --> 00:26:50.200
+In fact, our village has no name in the government record.
+
+00:27:01.200 --> 00:27:27.200
+We will start the journey before the sun, but the sun will gather in front of us.
+
+00:27:31.200 --> 00:27:32.200
+Stop the vehicle!
+
+00:27:34.200 --> 00:27:36.200
+Sir! Sir! Sir! Emergency, sir!
+
+00:28:01.200 --> 00:28:02.280
+What happened to the emergency?
+
+00:28:02.280 --> 00:28:04.120
+He's showing us the way to Pattarpakkam, sir.
+
+00:28:15.880 --> 00:28:16.880
+What's the problem?
+
+00:28:17.160 --> 00:28:18.960
+Sir, I think it's dangerous.
+
+00:28:18.960 --> 00:28:19.960
+Sir, it's a red signal.
+
+00:28:19.960 --> 00:28:22.000
+If you show a red signal and say it's dangerous,
+
+00:28:22.000 --> 00:28:23.480
+you can stop the vehicle anywhere,
+
+00:28:23.480 --> 00:28:25.280
+but you shouldn't stop here.
+
+00:28:25.280 --> 00:28:26.560
+You've just joined, haven't you?
+
+00:28:26.560 --> 00:28:27.440
+I don't know.
+
+00:28:27.440 --> 00:28:29.040
+When you come to Kondaman,
+
+00:28:29.040 --> 00:28:32.040
+One guy with a red shirt is in the group, don't stop the train
+
+00:28:32.080 --> 00:28:34.520
+If you join my duty, tell me my story
+
+00:28:34.560 --> 00:28:35.600
+You don't sit here
+
+00:28:35.640 --> 00:28:37.400
+Points man...points man
+
+00:28:59.040 --> 00:29:01.040
+Why didn't you stop the vehicle, Suri?
+
+00:29:01.040 --> 00:29:04.040
+I'm very hungry.
+
+00:29:04.040 --> 00:29:07.040
+We have a long way to go.
+
+00:29:07.040 --> 00:29:10.040
+Why didn't the vehicle stop?
+
+00:29:10.040 --> 00:29:12.040
+We'll see.
+
+00:29:12.040 --> 00:29:15.040
+If we stop the vehicle, will it stop?
+
+00:29:15.040 --> 00:29:17.040
+If it doesn't stop,
+
+00:29:17.040 --> 00:29:19.040
+we'll be in trouble.
+
+00:29:19.040 --> 00:29:21.040
+Don't worry about it now.
+
+00:29:21.040 --> 00:29:23.040
+I'll give you 10 rupees.
+
+00:29:27.040 --> 00:29:28.560
+I have to buy a couple of stamps
+
+00:29:29.840 --> 00:29:30.840
+What?
+
+00:29:31.280 --> 00:29:35.880
+With a 10 rupee stamp, he's going to hold such a big party?
+
+00:29:35.920 --> 00:29:37.360
+How do you know?
+
+00:29:37.400 --> 00:29:38.080
+Take this
+
+00:29:38.120 --> 00:29:39.520
+Surya, stop it
+
+00:29:39.560 --> 00:29:44.040
+I have to tell the elders that this is not a problem
+
+00:29:44.440 --> 00:29:45.800
+How long will it take?
+
+00:29:46.040 --> 00:29:47.040
+With these stamps
+
+00:29:47.080 --> 00:29:49.600
+At least he'll go there
+
+00:29:50.520 --> 00:29:53.720
+I mean, if we go, no one will stop us
+
+00:29:53.760 --> 00:29:54.360
+Sargur
+
+00:29:54.400 --> 00:29:55.720
+What is this, Surya?
+
+00:29:55.720 --> 00:29:57.220
+It's Malli's grandmother.
+
+00:29:57.220 --> 00:30:00.220
+If you want to know more about her, go to Rohu's son's house.
+
+00:30:00.000 --> 00:30:06.000
+If you want to make the station super, the government will give you a lot of information, Suri.
+
+00:30:06.000 --> 00:30:08.000
+What is the population of that village?
+
+00:30:08.000 --> 00:30:12.000
+What is the distance from your village to the station?
+
+00:30:12.000 --> 00:30:15.000
+There are a lot of things like this, sir.
+
+00:30:16.000 --> 00:30:19.000
+Oh Suri, what if he doesn't stop the vehicle now?
+
+00:30:19.000 --> 00:30:21.000
+How did everyone come to you?
+
+00:30:21.000 --> 00:30:22.000
+Don't worry, dear.
+
+00:30:22.000 --> 00:30:24.000
+Do you know when your daughter was born?
+
+00:30:24.000 --> 00:30:25.000
+When my daughter was born?
+
+00:30:25.000 --> 00:30:26.000
+Yes.
+
+00:30:26.000 --> 00:30:31.000
+If the same vehicle stops here, it will leave immediately.
+
+00:30:32.000 --> 00:30:35.000
+If you want to know the history of the dead...
+
+00:30:36.000 --> 00:30:38.000
+...you have to have the health of Ravana.
+
+00:30:40.000 --> 00:30:42.000
+Lakshmi! Lakshmi!
+
+00:30:43.000 --> 00:30:44.000
+Lakshmi!
+
+00:30:45.000 --> 00:30:46.000
+I am coming.
+
+00:30:54.000 --> 00:30:56.000
+Come on, let's go.
+
+00:31:09.000 --> 00:31:10.000
+Come on, Seenu.
+
+00:31:11.000 --> 00:31:12.000
+Dad, come fast.
+
+00:31:13.000 --> 00:31:15.000
+I'll take these four.
+
+00:31:16.000 --> 00:31:19.000
+I'll take four more when I come back.
+
+00:31:20.000 --> 00:31:21.000
+Okay, dad.
+
+00:31:21.000 --> 00:31:22.000
+Come on, come on.
+
+00:31:23.000 --> 00:31:24.000
+Come on.
+
+00:31:24.000 --> 00:31:25.000
+I am waiting upstairs.
+
+00:31:26.000 --> 00:31:27.000
+What are you waiting for?
+
+00:31:28.000 --> 00:31:29.000
+I am waiting.
+
+00:31:29.000 --> 00:31:30.000
+Don't burn it.
+
+00:31:30.000 --> 00:31:32.000
+I am telling you not to burn it.
+
+00:31:34.000 --> 00:31:35.000
+Hey, hey.
+
+00:31:35.000 --> 00:31:37.000
+What are you doing?
+
+00:31:37.000 --> 00:31:38.000
+Give it to me.
+
+00:31:39.000 --> 00:31:41.000
+I haven't heard anything yet.
+
+00:31:41.000 --> 00:31:42.000
+How can I tell you?
+
+00:31:42.000 --> 00:31:44.000
+It's been 30 years since I met you.
+
+00:31:44.000 --> 00:31:45.000
+You are not with me.
+
+00:31:50.000 --> 00:31:51.000
+Come on, let's go.
+
+00:31:51.000 --> 00:31:53.000
+You are making a secret out of it.
+
+00:31:53.000 --> 00:31:55.000
+You have ruined the relationship between the bride and the groom.
+
+00:31:55.000 --> 00:31:57.000
+The girl's legs are shaking.
+
+00:31:57.000 --> 00:31:58.000
+Her eyes are shaking.
+
+00:32:01.000 --> 00:32:02.000
+Look, you.
+
+00:32:02.000 --> 00:32:05.000
+He said that he will bring a girl for me when I grow up.
+
+00:32:05.000 --> 00:32:06.000
+Tomorrow is the wedding.
+
+00:32:06.000 --> 00:32:07.000
+Don't worry.
+
+00:32:08.000 --> 00:32:09.000
+If it is a girl, it is enough.
+
+00:32:09.000 --> 00:32:11.000
+If it is an old lady, I will tie a nuptial knot.
+
+00:32:11.000 --> 00:32:13.000
+If a girl is shown in our village, she will not get married.
+
+00:32:13.000 --> 00:32:15.000
+No girl will come to our village from around.
+
+00:32:15.000 --> 00:32:16.000
+Yadu!
+
+00:32:16.000 --> 00:32:17.000
+You are always talking about marriage.
+
+00:32:17.000 --> 00:32:18.000
+Come.
+
+00:32:18.000 --> 00:32:25.000
+I'm going to sleep more than this, if I sleep on this bed, it will be like sleeping on the bed of Trump.
+
+00:32:48.000 --> 00:32:50.000
+I'm going to kill you, idiot!
+
+00:33:18.000 --> 00:33:21.000
+Oh my God! What are you doing, Mr. Chairman?
+
+00:33:22.000 --> 00:33:25.000
+We thought your opponent Bhaskar Rao hit you with a slipper.
+
+00:33:26.000 --> 00:33:27.000
+If the whole world knows about it...
+
+00:33:29.000 --> 00:33:31.000
+Your father's politics will be ruined.
+
+00:33:48.000 --> 00:33:53.000
+My father is in politics, but I don't have any politics in me.
+
+00:33:54.000 --> 00:33:56.000
+Oh my god! I can't stand this anymore.
+
+00:33:58.000 --> 00:34:00.000
+How many times do I have to tell you?
+
+00:34:01.000 --> 00:34:03.000
+Don't tell me in the news.
+
+00:34:04.000 --> 00:34:08.000
+Oh my god! How can you say such a thing when she was born?
+
+00:34:10.000 --> 00:34:11.000
+What can I say?
+
+00:34:12.000 --> 00:34:13.000
+I don't know what to say.
+
+00:34:13.000 --> 00:34:15.000
+It's not right to talk like that, mom.
+
+00:34:17.000 --> 00:34:18.000
+Where is the fire?
+
+00:34:20.000 --> 00:34:22.000
+Achyankaru, why are you getting angry?
+
+00:34:22.000 --> 00:34:24.000
+Why don't you listen to me?
+
+00:34:24.000 --> 00:34:28.000
+If you want to stop Yagaspattu from doing this,
+
+00:34:28.000 --> 00:34:31.000
+you have to put out this fire.
+
+00:34:31.000 --> 00:34:32.000
+It's a festival, mom.
+
+00:34:32.000 --> 00:34:33.000
+If you distribute the money,
+
+00:34:33.000 --> 00:34:35.000
+we'll get at least 4 votes, right, Achyamma?
+
+00:34:37.000 --> 00:34:39.000
+If the money sold by us is 70,
+
+00:34:39.000 --> 00:34:43.000
+I can distribute it to 3 out of 18 people
+
+00:34:43.000 --> 00:34:49.000
+If I know that my father was killed by the opposition with the help of Subhadra Rajjerku
+
+00:34:49.000 --> 00:34:56.000
+I will distribute that sympathy to all the 18 people
+
+00:34:56.000 --> 00:34:59.000
+What are you saying?
+
+00:34:59.000 --> 00:35:02.000
+This is what you call a village
+
+00:35:02.000 --> 00:35:04.000
+Let's see what happens to the girl who is sitting in the middle of the street.
+
+00:35:04.000 --> 00:35:06.000
+She is so beautiful.
+
+00:35:30.000 --> 00:35:33.000
+Oh my God!
+
+00:35:34.000 --> 00:35:36.000
+Please bring me back.
+
+00:35:45.000 --> 00:35:48.000
+Greetings to all the hotel owners in Vijaynagar.
+
+00:35:48.000 --> 00:35:54.000
+Last night, Ritam Bhaskar Rao, the client of YS party,
+
+00:35:54.000 --> 00:35:59.000
+and his wife Ram Bujji, called us.
+
+00:35:59.000 --> 00:36:01.000
+What did he call us for?
+
+00:36:01.000 --> 00:36:02.000
+Does he have any sense?
+
+00:36:02.000 --> 00:36:04.000
+Look at the way our girls are crying.
+
+00:36:05.000 --> 00:36:07.000
+Don't stop it.
+
+00:36:07.000 --> 00:36:08.000
+Write it down.
+
+00:36:12.000 --> 00:36:16.000
+I feel bad that I didn't get the chance to meet him.
+
+00:36:16.000 --> 00:36:46.000
+For the sake of sympathy vote, I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who knows the truth and I am the only one who
+
+00:36:46.000 --> 00:36:50.000
+I am that girl, Arudheena Sikri Reddy.
+
+00:36:50.000 --> 00:36:54.000
+It is said that the stars come out of the sky, right?
+
+00:36:54.000 --> 00:36:58.000
+Why did this beautiful city come out of the sky?
+
+00:36:58.000 --> 00:37:03.000
+Do you want to see the fruit that has come out of the sky?
+
+00:37:03.000 --> 00:37:05.000
+What are you saying?
+
+00:37:07.000 --> 00:37:13.000
+Whatever it is, my father is creating such a trend.
+
+00:37:13.000 --> 00:37:17.000
+Let's go out for a drink, shall we?
+
+00:37:18.000 --> 00:37:21.000
+Shall we buy a cup of coffee to drink?
+
+00:37:22.000 --> 00:37:23.000
+A cup of coffee!
+
+00:37:24.000 --> 00:37:27.000
+Whatever it is, we only have punch bags.
+
+00:37:27.000 --> 00:37:29.000
+We don't have the habit of hiding it.
+
+00:37:30.000 --> 00:37:34.000
+I don't know if you are showing it or telling it.
+
+00:37:35.000 --> 00:37:36.000
+I don't understand.
+
+00:37:37.000 --> 00:37:39.000
+You are not talking with your mouth.
+
+00:37:39.000 --> 00:37:41.000
+You are talking with your voice.
+
+00:37:41.000 --> 00:37:43.800
+How can a paly smoke?
+
+00:37:45.000 --> 00:37:46.000
+That's it
+
+00:37:47.000 --> 00:37:49.000
+If a girl plays, will her father agree?
+
+00:37:51.000 --> 00:37:52.000
+That's why?
+
+00:37:53.000 --> 00:37:54.000
+That's why
+
+00:37:54.000 --> 00:37:55.000
+A paly
+
+00:37:56.000 --> 00:37:57.000
+A paly should smoke
+
+00:38:11.000 --> 00:38:13.000
+I don't know what to do with my life.
+
+00:38:37.000 --> 00:38:40.000
+You take care of Aylu. I'll take care of the girls.
+
+00:38:45.000 --> 00:38:47.000
+We should vote for these clothes.
+
+00:38:49.000 --> 00:38:50.000
+The arrangements are good, sir.
+
+00:38:51.000 --> 00:38:53.000
+The vote is in the count of three.
+
+00:38:54.000 --> 00:38:58.000
+Hey, don't drink our booze and jump into the next party.
+
+00:38:59.000 --> 00:39:02.000
+I've been crying since the day I saw H&M.
+
+00:39:04.000 --> 00:39:05.000
+Why is he crying so much?
+
+00:39:07.000 --> 00:39:08.000
+Hey, what are you looking at?
+
+00:39:31.000 --> 00:39:33.000
+Don't sweat it out with your body
+
+00:39:35.000 --> 00:39:37.000
+If you get shy with just one hand
+
+00:39:37.000 --> 00:39:39.000
+It's like you have a thin waist
+
+00:39:43.000 --> 00:39:45.000
+If you don't get it with two hands
+
+00:39:46.000 --> 00:39:48.000
+Keep the real bottle, I'm not giving it to you
+
+00:39:48.000 --> 00:39:49.000
+I won't
+
+00:39:49.000 --> 00:39:51.000
+Hey oldie, I'm getting tired
+
+00:39:51.000 --> 00:39:52.000
+What?
+
+00:39:52.000 --> 00:39:54.000
+I'm crying, I'm crying
+
+00:39:55.000 --> 00:39:57.000
+Do you know what Ajay has changed?
+
+00:39:57.000 --> 00:39:59.000
+Except for one face
+
+00:40:01.000 --> 00:40:02.000
+There he is!
+
+00:40:02.000 --> 00:40:03.000
+Oh my god!
+
+00:40:11.000 --> 00:40:12.000
+Hey, what is this?
+
+00:40:42.000 --> 00:40:43.000
+Who is it?
+
+00:40:44.000 --> 00:40:47.000
+Amayaguru, forget all the secrets
+
+00:40:47.000 --> 00:40:50.000
+Or else your father's politics will be ruined
+
+00:40:50.000 --> 00:40:52.000
+Who the hell are you?
+
+00:41:14.000 --> 00:41:22.000
+The dog in the movie is enough for you, my body is dancing like a daitaka
+
+00:41:22.000 --> 00:41:41.000
+I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty, I'll get into your beauty,
+
+00:41:41.000 --> 00:41:44.840
+When I look at you, I feel like I'm going to fall in love with you
+
+00:41:44.840 --> 00:41:48.200
+I feel like I'm going to fall in love with you
+
+00:42:11.000 --> 00:42:12.000
+What is it?
+
+00:42:25.000 --> 00:42:29.000
+You have pushed the anger on that nose.
+
+00:42:38.000 --> 00:42:41.000
+The thoughts are like a glass.
+
+00:43:23.000 --> 00:43:25.000
+Licka, in this life
+
+00:43:25.000 --> 00:43:27.000
+Licka, in my heart
+
+00:43:51.000 --> 00:43:54.000
+I like you, my dear.
+
+00:43:54.000 --> 00:43:58.000
+Your beauty is the best in me.
+
+00:43:58.000 --> 00:44:03.000
+Why did you leave me, my dear?
+
+00:44:03.000 --> 00:44:07.000
+Shall we come this week?
+
+00:44:07.000 --> 00:44:10.000
+Come near me, my dear.
+
+00:44:10.000 --> 00:44:14.000
+If you come near me, I will hug you.
+
+00:44:18.000 --> 00:44:23.000
+Let's play the game of love and play the game of love
+
+00:44:25.000 --> 00:44:29.000
+When I am with you, I feel the song of love
+
+00:44:29.000 --> 00:44:31.000
+My heart is filled with love
+
+00:44:31.000 --> 00:44:33.000
+Let's play the game of love
+
+00:44:43.000 --> 00:44:46.000
+My heart is filled with joy, my heart is filled with joy
+
+00:45:12.000 --> 00:45:15.000
+If you have the courage, speak out loud
+
+00:45:25.000 --> 00:45:27.000
+Long live Akshaya Mahadev!
+
+00:45:42.000 --> 00:45:45.000
+Hey! Hey! Hey!
+
+00:45:46.000 --> 00:45:48.000
+The winner is...
+
+00:45:48.000 --> 00:45:51.000
+...Sri Sri Srimanth Maharshi Sabartha Raju!
+
+00:45:52.000 --> 00:45:54.000
+Why are you so late?
+
+00:45:54.000 --> 00:45:56.000
+You came so early.
+
+00:45:57.000 --> 00:45:59.000
+I am scared that he might lose.
+
+00:46:02.000 --> 00:46:04.000
+Now, we are going to kill him.
+
+00:46:04.000 --> 00:46:06.000
+We are going to kill him.
+
+00:46:08.000 --> 00:46:10.000
+I told you, right?
+
+00:46:10.000 --> 00:46:11.500
+Why are you laughing at me?
+
+00:46:11.500 --> 00:46:15.500
+Do you think that a girl will call her father-in-law as her father-in-law?
+
+00:46:16.500 --> 00:46:19.000
+Do you think that her father-in-law will not eat her food?
+
+00:46:20.000 --> 00:46:22.000
+Do you think that she will not call her father-in-law as her father-in-law?
+
+00:46:22.000 --> 00:46:23.000
+As her father-in-law?
+
+00:46:23.000 --> 00:46:30.000
+My father Mukparaku Subhadra Rajaguru has been competing for all of you for the last 30 years.
+
+00:46:30.000 --> 00:46:35.000
+My sons have become too much of thieves before the election.
+
+00:46:35.000 --> 00:46:49.000
+I can easily tell whether you are on my side or on everyone's side based on how much you are addicted to alcohol and the way you are addicted to alcohol.
+
+00:46:51.000 --> 00:46:53.000
+Hey, why are you hitting my wife?
+
+00:46:53.000 --> 00:46:54.000
+I am not hitting her.
+
+00:46:54.000 --> 00:46:57.000
+I have to break her pomfret.
+
+00:46:59.000 --> 00:47:01.000
+If you hit her in the dark, she will not be able to sleep.
+
+00:47:01.000 --> 00:47:02.000
+Oh my god!
+
+00:47:05.000 --> 00:47:12.000
+If you vote in the dark, people will think you are a celebrity.
+
+00:47:12.000 --> 00:47:17.000
+Remember, Achi Amma is the last star.
+
+00:47:17.000 --> 00:47:20.000
+Even if you vote in the dark, people will think you are a celebrity.
+
+00:47:30.000 --> 00:47:33.000
+I'll show you how to do it.
+
+00:48:22.000 --> 00:48:24.000
+Come on, let's go.
+
+00:48:52.000 --> 00:48:54.000
+Oh my God!
+
+00:49:08.000 --> 00:49:10.000
+Who cut the tent?
+
+00:49:10.000 --> 00:49:13.000
+I thought you'd show me your face.
+
+00:49:13.000 --> 00:49:15.000
+You've ruined my life.
+
+00:49:15.000 --> 00:49:17.000
+Come here.
+
+00:49:19.000 --> 00:49:21.000
+If I hit you in the head, you'll die.
+
+00:49:21.000 --> 00:49:23.000
+If I tell you, you will fall in front of me.
+
+00:49:23.000 --> 00:49:25.000
+Tell me what the matter is.
+
+00:49:25.000 --> 00:49:27.000
+Even if the tent falls down,
+
+00:49:27.000 --> 00:49:29.000
+even if the three pillars fall down,
+
+00:49:29.000 --> 00:49:31.000
+you will not be able to stand up.
+
+00:49:31.000 --> 00:49:33.000
+You will not be able to stand up.
+
+00:49:33.000 --> 00:49:35.000
+Go, go, go.
+
+00:49:37.000 --> 00:49:39.000
+If you bring a girl in front of you,
+
+00:49:39.000 --> 00:49:41.000
+do you think the elder will vote for her?
+
+00:49:41.000 --> 00:49:43.000
+Do you think the elder will vote for her?
+
+00:49:45.000 --> 00:49:47.000
+If you see her posters without clothes in the morning,
+
+00:49:49.000 --> 00:49:51.000
+Look, he's going to slap you.
+
+00:49:54.000 --> 00:49:55.000
+Hey!
+
+00:49:58.000 --> 00:50:00.000
+Hey! Who wrote this?
+
+00:50:00.000 --> 00:50:01.000
+Watch out!
+
+00:50:17.000 --> 00:50:18.000
+Leave me!
+
+00:50:18.000 --> 00:50:20.000
+Hey! Get out of here!
+
+00:51:18.000 --> 00:51:23.000
+You are my son? You are my son who lives on my hands?
+
+00:51:24.000 --> 00:51:26.000
+How dare you touch me?
+
+00:51:29.000 --> 00:51:33.000
+You are my son who lives on my hands?
+
+00:51:48.000 --> 00:51:49.000
+Come on, let's go.
+
+00:52:32.000 --> 00:52:34.000
+Viva! Viva! Viva!
+
+00:53:32.000 --> 00:53:34.000
+Hey, sit down.
+
+00:54:00.000 --> 00:54:06.000
+K. R. Muthu Naidu is a disciple of K. R. Muthu Naidu in North India.
+
+00:54:18.000 --> 00:54:21.000
+If you want to join the army, join the army of Muthisavalli Air Force.
+
+00:54:29.000 --> 00:54:31.000
+I'm going to kill you!
+
+00:54:57.000 --> 00:55:27.000
+Come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come
+
+00:55:27.000 --> 00:55:32.000
+Naidu Swishy is the winner in the Mandala style Kusthi competition this time too.
+
+00:55:32.000 --> 00:55:36.000
+All the members of Sangapet will celebrate with Salubalu and Boman.
+
+00:55:44.000 --> 00:55:46.000
+Why did you catch me?
+
+00:55:46.000 --> 00:55:48.000
+As if you caught these goons.
+
+00:55:48.000 --> 00:55:50.000
+I caught them properly.
+
+00:55:50.000 --> 00:55:52.000
+You didn't see properly.
+
+00:55:52.000 --> 00:55:55.000
+You don't have to see the game, Bhadra.
+
+00:55:55.000 --> 00:55:57.000
+I can hear it.
+
+00:55:57.000 --> 00:55:59.000
+You can hear it, right?
+
+00:55:59.000 --> 00:56:03.000
+By the way, what is more important than victory?
+
+00:56:03.000 --> 00:56:05.000
+I don't want to win a game.
+
+00:56:05.000 --> 00:56:07.000
+I want to live.
+
+00:56:11.000 --> 00:56:13.000
+Hey, Suri.
+
+00:56:13.000 --> 00:56:15.000
+Do you want Rs.10 again?
+
+00:56:15.000 --> 00:56:17.000
+Take it.
+
+00:56:17.000 --> 00:56:19.000
+No, right?
+
+00:56:19.000 --> 00:56:21.000
+Rs.100 is not enough.
+
+00:56:21.000 --> 00:56:23.000
+I want Rs.80.
+
+00:56:23.000 --> 00:56:25.160
+Okay, I'll watch the game.
+
+00:56:25.200 --> 00:56:26.620
+Look at the mobile.
+
+00:56:27.000 --> 00:56:29.040
+10 paise.
+
+00:56:34.340 --> 00:56:35.840
+1 rupee.
+
+00:56:37.800 --> 00:56:41.580
+Ramuji's song always starts with 1 rupee.
+
+00:56:41.620 --> 00:56:43.300
+But this time, it starts with 1 rupee.
+
+00:56:43.340 --> 00:56:45.340
+What do you think of this?
+
+00:56:46.000 --> 00:56:47.300
+1 rupee.
+
+00:56:47.340 --> 00:56:48.580
+1 paise.
+
+00:56:50.300 --> 00:56:55.300
+One call, second time, one rupee.
+
+00:56:56.300 --> 00:57:00.300
+If we don't get a date, we'll get hurt.
+
+00:57:00.300 --> 00:57:02.300
+No, just one rupee.
+
+00:57:02.300 --> 00:57:04.300
+I don't understand.
+
+00:57:04.300 --> 00:57:10.300
+Third time, last time, one rupee.
+
+00:57:10.300 --> 00:57:12.300
+What are you saying?
+
+00:57:12.300 --> 00:57:14.300
+Why just one rupee?
+
+00:57:14.300 --> 00:57:16.300
+One call, one rupee.
+
+00:57:16.300 --> 00:57:18.300
+Why did you change your mind, sir?
+
+00:57:18.300 --> 00:57:20.300
+Is this the way to live?
+
+00:57:26.300 --> 00:57:28.300
+What did you do with all the money?
+
+00:57:28.300 --> 00:57:30.300
+I did all the funding.
+
+00:57:30.300 --> 00:57:32.300
+You should have listened to your father.
+
+00:57:32.300 --> 00:57:34.300
+He is a rich man.
+
+00:57:34.300 --> 00:57:36.300
+He can't do anything with our money.
+
+00:57:46.300 --> 00:57:49.700
+The crowd is cheering for Ramakrishnan
+
+00:58:07.980 --> 00:58:09.980
+Surya, you go
+
+00:58:09.980 --> 00:58:11.980
+If you don't eat, how will we go?
+
+00:58:11.980 --> 00:58:13.980
+We can't go.
+
+00:58:37.980 --> 00:58:40.480
+How will we go if we don't kill the old man?
+
+00:58:46.480 --> 00:58:47.480
+I'm dead.
+
+00:58:48.480 --> 00:58:49.480
+Kathi!
+
+00:58:55.980 --> 00:58:56.980
+You sit down.
+
+00:59:00.480 --> 00:59:01.480
+Hey, Vimaram.
+
+00:59:01.480 --> 00:59:01.980
+Brother.
+
+00:59:01.980 --> 00:59:02.480
+You go.
+
+00:59:02.980 --> 00:59:04.480
+What's wrong with the old man?
+
+00:59:04.480 --> 00:59:11.480
+This is the first time I've seen a man in a suit running around in a suit.
+
+00:59:16.480 --> 00:59:20.480
+I guarantee that the man who caught my collar will catch yours tomorrow.
+
+00:59:21.480 --> 00:59:25.480
+If I had given him a chance to play, would my son be proud of me?
+
+00:59:26.480 --> 00:59:30.480
+If I beat him today, he'll come to the meeting and say that he humiliated his mother.
+
+00:59:30.480 --> 00:59:32.480
+Then it was our brother who lost in the election
+
+00:59:32.480 --> 00:59:35.480
+The insult that happened to us in the last election
+
+00:59:35.480 --> 00:59:37.480
+We will make it happen to him in front of everyone in the light
+
+00:59:37.480 --> 00:59:40.480
+Seeing this game, he is calling us like crazy
+
+00:59:40.480 --> 00:59:44.480
+In the same game, we will make him feel like my son
+
+00:59:46.480 --> 00:59:48.480
+He knows how to play this game
+
+00:59:50.480 --> 00:59:53.480
+We know how to make him play the game
+
+00:59:53.480 --> 00:59:55.480
+We need your help
+
+01:01:00.000 --> 01:01:01.000
+Come on, come on.
+
+01:01:30.000 --> 01:01:32.000
+Come on, Tata.
+
+01:01:58.000 --> 01:02:00.000
+I don't know what to do with him.
+
+01:02:22.000 --> 01:02:25.000
+But that day, our elder son had to play with 21 people.
+
+01:02:32.000 --> 01:02:33.000
+One rupee.
+
+01:03:22.000 --> 01:03:52.000
+My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day My day
+
+01:04:22.000 --> 01:04:24.000
+I will make you run for your life.
+
+01:04:24.000 --> 01:04:26.000
+You will become a hero.
+
+01:04:26.000 --> 01:04:28.000
+You will become a hero last weekend.
+
+01:04:28.000 --> 01:04:30.000
+You will become a hero after half a day.
+
+01:04:34.000 --> 01:04:36.000
+Hey, stop. Stop.
+
+01:04:40.000 --> 01:04:42.000
+I will make you run for your life.
+
+01:04:52.000 --> 01:04:53.000
+I don't know what to do.
+
+01:05:08.000 --> 01:05:11.000
+I'll beat you up if you come near me.
+
+01:05:16.000 --> 01:05:18.000
+What happened to Ambrose?
+
+01:05:18.000 --> 01:05:20.000
+He crossed the line in front of the ball.
+
+01:05:20.000 --> 01:05:22.000
+Even if there is a game in the hands of the winner,
+
+01:05:22.000 --> 01:05:24.000
+he won the game.
+
+01:05:46.000 --> 01:05:47.000
+What is your name?
+
+01:05:47.000 --> 01:05:48.000
+My name is Raju.
+
+01:06:15.000 --> 01:06:18.000
+Victory! Victory! Victory!
+
+01:06:18.000 --> 01:06:19.000
+No!
+
+01:06:19.000 --> 01:06:22.000
+You asked me how to survive a game, right?
+
+01:06:22.000 --> 01:06:23.000
+This is it!
+
+01:06:23.000 --> 01:06:26.000
+Victory! Victory! Victory!
+
+01:06:26.000 --> 01:06:30.000
+It has nothing to do with winning or losing.
+
+01:06:30.000 --> 01:06:33.000
+After watching our game,
+
+01:06:33.000 --> 01:06:36.000
+should we fight to win the game?
+
+01:06:45.000 --> 01:06:50.000
+Hey, will you make my brother stand without any clothes?
+
+01:06:50.000 --> 01:06:52.000
+You scoundrel!
+
+01:06:52.000 --> 01:06:59.000
+Do you know why I am singing for a rupee, no matter how much I pay you?
+
+01:07:01.000 --> 01:07:03.000
+100 is my pride.
+
+01:07:03.000 --> 01:07:06.000
+Rupee is yours.
+
+01:07:07.000 --> 01:07:10.000
+This one rupee is yours.
+
+01:07:45.000 --> 01:07:46.000
+What is it?
+
+01:07:48.000 --> 01:07:49.000
+The game is over
+
+01:07:51.000 --> 01:07:56.000
+Do you know why people are shouting your game is over?
+
+01:07:57.000 --> 01:08:01.000
+Not because of your game, but because of your game
+
+01:08:02.000 --> 01:08:04.000
+Remember that game
+
+01:08:15.000 --> 01:08:18.000
+Did they beat you up in the auto because of personal issues?
+
+01:08:18.000 --> 01:08:19.000
+Yes, sir.
+
+01:08:19.000 --> 01:08:22.000
+My elder son was humiliated in the auto that day.
+
+01:08:22.000 --> 01:08:25.000
+There was an incident in our village.
+
+01:08:25.000 --> 01:08:27.000
+Dad, I'm leaving.
+
+01:08:27.000 --> 01:08:28.000
+Where are you going?
+
+01:08:28.000 --> 01:08:31.000
+I'll take care of my own business.
+
+01:08:31.000 --> 01:08:34.000
+I'll take care of the entire business with you.
+
+01:08:34.000 --> 01:08:36.000
+You're the only one who can take care of the business.
+
+01:09:15.000 --> 01:09:45.000
+Come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come
+
+01:10:45.000 --> 01:10:47.000
+18,000 people?
+
+01:10:48.000 --> 01:10:50.000
+So many people in a non-usual number?
+
+01:10:51.000 --> 01:10:52.000
+Sir!
+
+01:10:53.000 --> 01:10:54.000
+Come here
+
+01:10:56.000 --> 01:10:59.000
+You killed a train driver, but I'm from this village
+
+01:11:00.000 --> 01:11:02.000
+I said I'll be back in 30 years
+
+01:11:03.000 --> 01:11:05.000
+I don't want to be caught in a trap
+
+01:11:06.000 --> 01:11:07.000
+Keep the documents in your hand
+
+01:11:08.000 --> 01:11:09.000
+Sir!
+
+01:11:10.000 --> 01:11:11.000
+The train, right? Let's stop it
+
+01:11:13.000 --> 01:11:18.360
+Sir, the people in that village don't have anything to lose
+
+01:11:18.640 --> 01:11:20.360
+We should take care of all this
+
+01:11:21.880 --> 01:11:24.600
+It's not that easy to stop a train
+
+01:11:24.680 --> 01:11:28.080
+Sir, what about our problem?
+
+01:11:28.120 --> 01:11:30.400
+Only a few problems can be solved
+
+01:11:30.440 --> 01:11:31.840
+It's a great solution
+
+01:11:32.200 --> 01:11:33.760
+Sir...sir...
+
+01:11:33.800 --> 01:11:34.680
+What is it?
+
+01:11:34.720 --> 01:11:35.760
+Please listen to me
+
+01:11:40.920 --> 01:11:44.920
+If we stop in the village of Karambandipa...
+
+01:11:50.920 --> 01:11:53.920
+...our lives will be ruined...
+
+01:11:54.920 --> 01:11:59.920
+...and we will be sent to the hospital near death...
+
+01:11:59.920 --> 01:12:03.920
+...so that we can go back to our home.
+
+01:12:03.920 --> 01:12:14.920
+Sir, life is more difficult than death if you don't believe in the future.
+
+01:12:15.920 --> 01:12:21.920
+If you ask the government, they will say you are a fool.
+
+01:12:22.920 --> 01:12:24.920
+Please forgive me.
+
+01:12:25.920 --> 01:12:31.920
+Sir...sir...sir...sir...sir...
+
+01:12:33.920 --> 01:12:43.920
+I will kill you, I will kill you, I will kill you, I will kill you, I will kill you, I will kill you.
+
+01:13:33.920 --> 01:13:36.920
+How can I have so many hearts when I don't have it?
+
+01:13:36.920 --> 01:13:37.920
+You throw it away.
+
+01:13:37.920 --> 01:13:39.920
+Vakais, don't act smart.
+
+01:13:39.920 --> 01:13:40.920
+Look here.
+
+01:13:41.920 --> 01:13:43.920
+Will you throw it away or what?
+
+01:13:44.920 --> 01:13:45.920
+Throw it away.
+
+01:13:45.920 --> 01:13:46.920
+Vakais, look here.
+
+01:13:46.920 --> 01:13:48.920
+I will drink the whole pot.
+
+01:13:48.920 --> 01:13:50.920
+Always wear the sandal.
+
+01:13:51.920 --> 01:13:52.920
+Don't wear the sandal.
+
+01:14:00.920 --> 01:14:02.920
+Have you seen the flag of Purnagya?
+
+01:14:02.920 --> 01:14:03.880
+Sir...
+
+01:14:29.000 --> 01:14:29.480
+Sir...sir...sir...
+
+01:14:29.960 --> 01:14:31.480
+Stop the train, sir. Stop it, sir.
+
+01:14:31.520 --> 01:14:32.360
+It's your habit, isn't it?
+
+01:14:32.360 --> 01:14:34.360
+This time, we'll catch them. Not there, sir.
+
+01:14:34.360 --> 01:14:36.360
+We'll catch them.
+
+01:14:36.360 --> 01:14:37.360
+What did you say, sir?
+
+01:14:39.360 --> 01:14:40.360
+Hey, you!
+
+01:14:41.360 --> 01:14:42.360
+Move aside.
+
+01:14:42.360 --> 01:14:43.360
+I'll kill you.
+
+01:14:47.360 --> 01:14:48.360
+Hey!
+
+01:14:54.360 --> 01:14:55.360
+We'll catch them.
+
+01:14:56.360 --> 01:14:57.360
+Move aside.
+
+01:14:59.360 --> 01:15:00.360
+Hey, you!
+
+01:15:00.360 --> 01:15:01.360
+Come on, let's go.
+
+01:15:20.360 --> 01:15:21.760
+Sir, it's a break-in.
+
+01:15:23.240 --> 01:15:44.180
+You are a
+
+01:15:44.180 --> 01:15:48.180
+O Sun, you are the light of my life
+
+01:16:07.180 --> 01:16:20.180
+Did you recognize your eyes?
+
+01:16:20.180 --> 01:16:28.180
+Did you shed your blood in the flames of the fire?
+
+01:16:28.180 --> 01:16:35.180
+How many years have you been living like a moth?
+
+01:16:35.180 --> 01:16:42.180
+Have you ever heard the song of the birds that you sing?
+
+01:16:53.180 --> 01:16:56.180
+Like a big boat, you are talking about Bandapasar
+
+01:16:57.180 --> 01:16:59.180
+Now you are going to destroy all of us
+
+01:17:03.180 --> 01:17:05.180
+It is not right to die like this
+
+01:17:05.180 --> 01:17:08.180
+It is wrong to live like this
+
+01:17:10.180 --> 01:17:11.180
+Hey
+
+01:17:12.180 --> 01:17:16.180
+For 30 years, the sun of Yappala has been playing with the red flag
+
+01:17:17.180 --> 01:17:21.180
+Bandapasar is not a gift between that village and this village
+
+01:17:23.180 --> 01:17:28.180
+To reduce the distance between that person and this person
+
+01:17:31.180 --> 01:17:33.180
+Half of our wealth is in this
+
+01:17:37.180 --> 01:17:40.180
+Half of our life is in that
+
+01:17:41.180 --> 01:17:45.180
+The reason for this is not the neighbors as you think
+
+01:17:46.180 --> 01:17:49.180
+It is the elders of the kingdom
+
+01:17:49.180 --> 01:17:57.180
+If we get to know that she is here, we will also get to know about her, Pithi.
+
+01:17:59.180 --> 01:18:01.180
+We will get to know about her.
+
+01:18:06.180 --> 01:18:08.180
+I will go and call Surya.
+
+01:18:15.180 --> 01:18:17.180
+Surya...Surya...Surya...
+
+01:20:19.180 --> 01:20:49.180
+I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I will not spare you, I
+
+01:20:49.180 --> 01:20:57.500
+Ram sir, please give our dead body to us sir, it's going to die
+
+01:20:58.060 --> 01:20:59.300
+Don't you understand?
+
+01:21:00.100 --> 01:21:02.020
+He is our village guy sir
+
+01:21:03.860 --> 01:21:05.260
+He is a thief
+
+01:21:05.580 --> 01:21:09.420
+Sir, we all are his thieves
+
+01:21:10.020 --> 01:21:12.020
+He is your village guy, he is yours
+
+01:21:13.460 --> 01:21:15.260
+Take him away and catch him
+
+01:21:15.340 --> 01:21:17.700
+Sir, it's only for that reminiscence
+
+01:21:19.180 --> 01:21:22.180
+Appalasur's son is dead
+
+01:21:23.180 --> 01:21:24.180
+Hey, who are you?
+
+01:21:28.180 --> 01:21:30.180
+Are you trying to make me remember?
+
+01:21:30.180 --> 01:21:34.180
+There is a report saying that he is an unidentified body
+
+01:21:35.180 --> 01:21:36.180
+What sir?
+
+01:21:37.180 --> 01:21:39.180
+That means he is an orphan
+
+01:21:40.180 --> 01:21:41.180
+Orphan?
+
+01:21:43.180 --> 01:21:48.180
+What is he saying sir?
+
+01:21:49.180 --> 01:21:53.180
+Don't ask me which rail-driver goes to your village.
+
+01:21:54.180 --> 01:21:56.180
+You will remember Appalacharya.
+
+01:21:58.180 --> 01:22:00.180
+Ask me which gang works on the track.
+
+01:22:02.180 --> 01:22:05.180
+In your village, M.R. office, collector's office,
+
+01:22:05.180 --> 01:22:07.180
+and all the big offices,
+
+01:22:07.180 --> 01:22:09.180
+you will remember me as a mad man.
+
+01:22:10.180 --> 01:22:13.180
+Don't forget my Appalacharya.
+
+01:22:15.180 --> 01:22:17.180
+This is not your mind.
+
+01:22:17.180 --> 01:22:19.180
+He is not only in your heart, sir.
+
+01:22:20.180 --> 01:22:22.180
+The train that goes on your tracks,
+
+01:22:22.180 --> 01:22:24.180
+the red and green flags that fly there,
+
+01:22:24.180 --> 01:22:26.180
+I can recognize them, sir.
+
+01:22:27.180 --> 01:22:29.180
+How did you get him?
+
+01:22:30.180 --> 01:22:32.180
+I don't know how to recognize you, Surya.
+
+01:22:33.180 --> 01:22:34.180
+Who is he?
+
+01:22:34.180 --> 01:22:36.180
+He doesn't even recognize me.
+
+01:22:37.180 --> 01:22:39.180
+Hey, show me your ID card.
+
+01:22:41.180 --> 01:22:42.180
+ID card?
+
+01:22:42.180 --> 01:22:45.180
+What do you mean, I don't recognize you, sir?
+
+01:22:48.180 --> 01:22:51.180
+I'm a big shot, sir.
+
+01:22:53.180 --> 01:22:57.180
+In cricket, they call me a playboy.
+
+01:22:58.180 --> 01:23:00.180
+Why do you say I don't recognize you?
+
+01:23:04.180 --> 01:23:08.180
+Not only Sachin, I recognize you, too.
+
+01:23:08.180 --> 01:23:14.180
+Not only Sachinai, but there must be a way to make him recognize you.
+
+01:23:14.180 --> 01:23:18.180
+The government must recognize both the dead and the alive.
+
+01:23:19.180 --> 01:23:22.180
+One day, you'll be dead.
+
+01:23:22.180 --> 01:23:23.180
+Come on, get up.
+
+01:23:23.180 --> 01:23:25.180
+Let's go back to our village.
+
+01:23:27.180 --> 01:23:28.180
+What are you doing?
+
+01:23:28.180 --> 01:23:29.180
+Stop!
+
+01:23:30.180 --> 01:23:31.180
+Hey!
+
+01:23:32.180 --> 01:23:33.180
+Come on!
+
+01:23:33.180 --> 01:23:34.180
+Let's go!
+
+01:23:38.180 --> 01:23:39.180
+Come on, let's go.
+
+01:24:49.180 --> 01:24:53.180
+If you don't leave that dead body, they will also become dead.
+
+01:24:53.180 --> 01:24:54.180
+Leave me.
+
+01:24:55.180 --> 01:24:58.180
+This is going to be a pain in the neck.
+
+01:24:58.180 --> 01:24:59.180
+Look.
+
+01:25:03.180 --> 01:25:07.180
+That day, the sun and the death of the moon gave birth to a lot of excitement.
+
+01:25:07.180 --> 01:25:09.180
+They also gave birth to fear.
+
+01:25:19.180 --> 01:25:46.180
+If we take all the steps towards the village with the fear of death, we will not be able to take even a single step.
+
+01:25:46.180 --> 01:25:51.580
+That day, the only step taken by our elder son was the only way to our village, sir.
+
+01:26:00.300 --> 01:26:04.100
+The elder son who played the game only for the sake of the village,
+
+01:26:04.460 --> 01:26:10.660
+the Hindu Keishri Vasta Gournayat Barivedakhi, who wanted to die for the book of time,
+
+01:26:10.940 --> 01:26:12.980
+he was beaten up by him, sir.
+
+01:26:16.180 --> 01:26:19.180
+Hey, someone has come to play the game.
+
+01:26:19.180 --> 01:26:22.180
+Tell him that Kuli is not playing the game here.
+
+01:26:22.180 --> 01:26:23.180
+Hey, stop.
+
+01:26:24.180 --> 01:26:28.180
+She came not for Kuli, but for the game.
+
+01:26:46.180 --> 01:26:47.180
+Who is it?
+
+01:27:09.180 --> 01:27:12.180
+If you are Siddhna, I can't remember the game.
+
+01:27:12.180 --> 01:27:16.180
+But I don't think that govt. has any sense
+
+01:28:12.180 --> 01:28:19.180
+Nair, you have to teach us a lesson and bring glory to our village.
+
+01:28:20.180 --> 01:28:25.180
+Whether it is victory or defeat, we must bring glory to this village.
+
+01:28:42.180 --> 01:28:52.180
+Kusthi is not a game against death, it is a game against death.
+
+01:29:12.180 --> 01:29:19.180
+Now tell me, will you live or die?
+
+01:29:42.180 --> 01:29:44.180
+Thank you for watching our video.
+
+01:29:44.180 --> 01:29:46.180
+If you liked our video, please subscribe to our channel.
+
+01:29:46.180 --> 01:29:48.180
+Thank you.
+
+01:30:00.000 --> 01:30:02.000
+Music
+
+01:30:30.000 --> 01:30:32.000
+I'll be back in a jiffy
+
+01:30:56.000 --> 01:30:58.000
+Hey, you go.
+
+01:31:00.000 --> 01:31:02.000
+I will go.
+
+01:31:02.000 --> 01:31:04.000
+You still have time.
+
+01:31:04.000 --> 01:31:06.000
+Take the load out.
+
+01:31:06.000 --> 01:31:08.000
+Wait.
+
+01:31:24.000 --> 01:31:27.000
+Will you stay or will you go?
+
+01:31:43.000 --> 01:31:44.000
+Why are you falling?
+
+01:32:19.000 --> 01:32:22.000
+Hey, where are you going? Go back to your work.
+
+01:32:30.000 --> 01:32:34.000
+If an old man doesn't become a good man, he will dream of a job.
+
+01:32:34.000 --> 01:32:37.000
+They will send him behind saying that he is a good man.
+
+01:32:37.000 --> 01:32:40.000
+Hey, did you work hard?
+
+01:32:41.000 --> 01:32:43.000
+It's okay if a girl doesn't become a good man.
+
+01:32:43.000 --> 01:32:45.000
+It's your job to bring him back.
+
+01:32:45.000 --> 01:32:47.000
+Get lost, you labors!
+
+01:32:49.000 --> 01:32:51.000
+Let's go back to work.
+
+01:32:51.000 --> 01:32:54.000
+Kurma, I won't come back to work.
+
+01:32:54.000 --> 01:32:56.000
+You go back.
+
+01:32:56.000 --> 01:32:58.000
+Look at him.
+
+01:32:58.000 --> 01:33:02.000
+He's been living in the village since the beginning.
+
+01:33:04.000 --> 01:33:06.000
+He's a thief.
+
+01:33:06.000 --> 01:33:08.000
+What are you saying?
+
+01:33:08.000 --> 01:33:09.000
+Keep your mouth shut.
+
+01:33:09.000 --> 01:33:11.000
+I didn't say anything.
+
+01:33:11.000 --> 01:33:15.000
+That day, when he was beating us,
+
+01:33:15.000 --> 01:33:20.080
+We were beaten up by the police and the law
+
+01:33:20.280 --> 01:33:25.760
+Do you know why I stayed in the village even after my only son died?
+
+01:33:26.600 --> 01:33:28.880
+For the sake of my other son
+
+01:33:29.240 --> 01:33:32.200
+Both of us used to live in the village alone
+
+01:33:32.280 --> 01:33:36.080
+But you are the only one who used to live with my only son
+
+01:33:38.640 --> 01:33:41.720
+His clothes are different, his attire is different
+
+01:33:41.800 --> 01:33:43.160
+His character is different
+
+01:33:43.160 --> 01:33:46.740
+Instead of taking care of my son, let's take care of the one who knows his mother.
+
+01:33:47.320 --> 01:33:48.160
+Let's go.
+
+01:33:56.360 --> 01:33:59.860
+Till now, no one could have come to the prison.
+
+01:34:00.320 --> 01:34:03.780
+Now, even the labors are thinking.
+
+01:34:03.820 --> 01:34:04.580
+Konda.
+
+01:34:04.620 --> 01:34:05.620
+What?
+
+01:34:08.080 --> 01:34:09.780
+That's what I remember.
+
+01:34:10.200 --> 01:34:12.040
+Since I came here, I've been telling you cool things.
+
+01:34:12.040 --> 01:34:14.040
+I'm not a cool guy, I'm a hot guy.
+
+01:34:15.040 --> 01:34:17.040
+Will you eat or die?
+
+01:34:17.040 --> 01:34:19.040
+What are you looking at?
+
+01:34:19.040 --> 01:34:21.040
+What you said.
+
+01:34:21.040 --> 01:34:23.040
+Do you know what's in your hands?
+
+01:34:23.040 --> 01:34:25.040
+Dhanabandhu.
+
+01:34:45.040 --> 01:34:46.280
+Do you know what it is?
+
+01:34:46.360 --> 01:35:13.180
+It's a
+
+01:35:15.040 --> 01:35:19.040
+You thought the job I gave you was a coolie job, didn't you?
+
+01:35:20.040 --> 01:35:22.040
+The job you do has a game in it.
+
+01:35:23.040 --> 01:35:25.040
+If you do it for coolie, it's a job.
+
+01:35:25.040 --> 01:35:28.040
+If you do it for victory, it's a game.
+
+01:35:29.040 --> 01:35:31.040
+Do you know what this game is called?
+
+01:35:33.040 --> 01:35:34.040
+Mangi!
+
+01:35:45.040 --> 01:35:47.040
+This is not a cricket ground.
+
+01:35:47.040 --> 01:35:49.040
+This is a wrestling ground.
+
+01:36:11.040 --> 01:36:12.320
+This is Kusthi.
+
+01:36:12.320 --> 01:36:15.320
+I will beat the wrestler in the ring.
+
+01:36:16.320 --> 01:36:17.840
+What a name!
+
+01:36:17.840 --> 01:36:19.040
+He is Dorbhi Pachad.
+
+01:36:19.040 --> 01:36:23.040
+If the wrestler's whip hits the ground, he will be out.
+
+01:36:41.040 --> 01:36:44.040
+I'll never forget you, my dear.
+
+01:37:11.040 --> 01:37:12.040
+Come on, let's go
+
+01:37:13.040 --> 01:37:15.040
+If we stay there, we'll listen to them
+
+01:37:16.040 --> 01:37:17.040
+Our lives are here
+
+01:37:17.040 --> 01:37:18.040
+You stay with me
+
+01:37:19.040 --> 01:37:20.040
+I'll stay with you
+
+01:37:39.040 --> 01:37:40.040
+You stay with me.
+
+01:37:41.040 --> 01:37:42.040
+I don't want to live in that village.
+
+01:37:43.040 --> 01:37:44.040
+I don't want to die.
+
+01:37:44.040 --> 01:37:45.040
+I don't want to live here.
+
+01:37:46.040 --> 01:37:48.040
+You are making me suffer so much.
+
+01:37:48.040 --> 01:37:49.040
+You are a bad person.
+
+01:38:09.040 --> 01:38:11.040
+Madhra, you go.
+
+01:38:39.040 --> 01:38:41.040
+Masa Masa Masa
+
+01:38:41.040 --> 01:38:43.040
+Chik Chik Chik Chik
+
+01:39:13.040 --> 01:39:14.040
+Hey, what are you doing?
+
+01:39:32.040 --> 01:39:34.040
+I'm going to kill you, I'm going to kill you
+
+01:39:34.040 --> 01:39:36.040
+I'm going to kill you
+
+01:40:30.040 --> 01:40:31.040
+Oh!
+
+01:40:38.040 --> 01:40:39.040
+Dithi!
+
+01:40:40.040 --> 01:40:41.040
+I'm here.
+
+01:40:41.040 --> 01:40:42.040
+Come here.
+
+01:40:43.040 --> 01:40:44.040
+Why are you here?
+
+01:40:44.040 --> 01:40:45.040
+When did you come?
+
+01:40:45.040 --> 01:40:46.040
+What if Naidu sees us?
+
+01:40:47.040 --> 01:40:49.040
+I gave Rangai Rs.100 to keep quiet.
+
+01:40:49.040 --> 01:40:51.040
+He took it and made me jump the stairs.
+
+01:40:51.040 --> 01:40:52.040
+Are you mad?
+
+01:40:52.040 --> 01:40:53.040
+Get out of the way.
+
+01:40:54.040 --> 01:40:55.040
+Oh!
+
+01:40:55.040 --> 01:40:56.040
+She is innocent.
+
+01:40:56.040 --> 01:40:57.040
+Okay.
+
+01:40:57.040 --> 01:40:58.040
+Sit down.
+
+01:40:58.040 --> 01:40:59.040
+I wanted to thank you.
+
+01:41:00.040 --> 01:41:01.040
+For what?
+
+01:41:01.040 --> 01:41:05.040
+For pulling the tent that day and saving my life.
+
+01:41:05.040 --> 01:41:06.040
+Thanks.
+
+01:41:06.040 --> 01:41:08.040
+Okay. Thanks to me too.
+
+01:41:09.040 --> 01:41:10.040
+Go.
+
+01:41:11.040 --> 01:41:12.040
+Come on.
+
+01:41:12.040 --> 01:41:13.040
+Pethi.
+
+01:41:18.040 --> 01:41:27.040
+As if you helped me, someone kissed me.
+
+01:41:27.040 --> 01:41:30.840
+Oh no! You brought him here and made him stand in front of me.
+
+01:41:30.880 --> 01:41:32.440
+I'll have to beat him up.
+
+01:41:32.480 --> 01:41:34.040
+It's not a big deal.
+
+01:41:34.080 --> 01:41:35.240
+You stand here. I'll send him here.
+
+01:41:35.280 --> 01:41:36.280
+You go first.
+
+01:41:36.320 --> 01:41:37.120
+Go.
+
+01:41:37.160 --> 01:41:38.040
+Diti!
+
+01:41:38.080 --> 01:41:38.760
+Let's go.
+
+01:41:45.960 --> 01:41:48.120
+His hands are like yours.
+
+01:41:48.160 --> 01:41:49.600
+His eyes are round.
+
+01:41:52.960 --> 01:41:55.200
+His caste is also like yours.
+
+01:41:56.200 --> 01:41:58.200
+It will be huge.
+
+01:42:00.200 --> 01:42:04.200
+When I kissed him, his breath touched my lips.
+
+01:42:05.200 --> 01:42:07.200
+He will be like you.
+
+01:42:07.200 --> 01:42:10.200
+So, should I say that he will be like you?
+
+01:42:11.200 --> 01:42:12.200
+Or should I say that it is you?
+
+01:42:13.200 --> 01:42:14.200
+What did I know?
+
+01:42:15.200 --> 01:42:16.200
+What should I do?
+
+01:42:19.200 --> 01:42:20.200
+Did you kiss him?
+
+01:42:20.200 --> 01:42:21.200
+Are you the one?
+
+01:42:23.200 --> 01:42:27.200
+Don't you know that a girl shouldn't kiss without her love?
+
+01:42:28.200 --> 01:42:29.200
+Shut up!
+
+01:42:30.200 --> 01:42:33.200
+A man gives a flower to express his love
+
+01:42:44.200 --> 01:42:50.200
+If the love of the people under this hill is the same as the love I know,
+
+01:42:51.200 --> 01:42:54.200
+I am not saying that I will love like everyone else.
+
+01:42:55.200 --> 01:42:57.200
+I am saying that I will marry him.
+
+01:42:57.200 --> 01:43:00.200
+If you die alone, it will be half of your life.
+
+01:43:03.200 --> 01:43:06.200
+If you die, it will be half of your life.
+
+01:43:09.200 --> 01:43:11.200
+Look at the last photo.
+
+01:43:11.200 --> 01:43:12.200
+Hello, hello.
+
+01:43:25.200 --> 01:43:26.040
+One, two, three.
+
+01:43:28.320 --> 01:43:29.440
+Mic testing, ready.
+
+01:43:29.440 --> 01:43:33.560
+Sree Sree Sree Kota Putra is giving a speech to the people of the district.
+
+01:43:33.600 --> 01:43:35.280
+To the residents of the village.
+
+01:43:35.320 --> 01:43:36.400
+Hey, nothing will happen here.
+
+01:43:36.440 --> 01:43:37.600
+I will come, you be quiet.
+
+01:43:37.640 --> 01:43:41.320
+Welcome to the village.
+
+01:43:41.360 --> 01:43:43.000
+Hey Keshava,
+
+01:43:44.000 --> 01:43:47.880
+fate has made us go to the state.
+
+01:43:48.720 --> 01:43:52.840
+The old man who stopped us from going to the district,
+
+01:43:52.880 --> 01:43:54.680
+somehow this time,
+
+01:43:54.680 --> 01:43:59.640
+We have to get rid of Bhadra and get rid of our Chilla
+
+01:43:59.680 --> 01:44:00.680
+Cricket is coming, Bhadra
+
+01:44:00.720 --> 01:44:01.720
+Don't worry
+
+01:44:01.760 --> 01:44:04.680
+We will get rid of Bhadra
+
+01:44:09.720 --> 01:44:11.680
+You wait, Bhadra
+
+01:44:13.720 --> 01:44:14.720
+Bhadra
+
+01:44:16.680 --> 01:44:18.680
+You build Langota
+
+01:44:24.680 --> 01:44:28.680
+What Naidu, did you hear what I said?
+
+01:44:29.680 --> 01:44:31.680
+Is the game cool or is it a game?
+
+01:44:38.680 --> 01:44:41.680
+Even if you win, there is no end to that game.
+
+01:44:41.680 --> 01:44:45.680
+That is, there is no end to the victory won by this gondola.
+
+01:44:46.680 --> 01:44:48.680
+Hey, are you guys ready?
+
+01:44:49.680 --> 01:44:51.680
+Will you both go to the side of the forest tomorrow?
+
+01:45:24.680 --> 01:45:28.680
+They have crushed us in the ground and made us their brothers
+
+01:45:28.680 --> 01:45:32.680
+Till now you have seen that our brothers will become our brothers
+
+01:45:32.680 --> 01:45:39.680
+But for the first time, you will see that our brothers will become our brothers
+
+01:46:24.680 --> 01:46:26.680
+Come on, let's go and have some fun.
+
+01:46:32.680 --> 01:46:34.680
+Come on.
+
+01:46:54.680 --> 01:47:24.680
+Come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come
+
+01:48:24.680 --> 01:48:25.680
+Hey, what are you doing?
+
+01:48:36.680 --> 01:48:38.120
+I'll teach you a lesson.
+
+01:48:38.160 --> 01:48:41.040
+You'll learn a lesson from me.
+
+01:48:43.720 --> 01:48:46.400
+I'll teach you a lesson from me.
+
+01:48:55.240 --> 01:48:56.400
+Hold my hand.
+
+01:49:31.280 --> 01:49:34.280
+You both have been told that the one who plays together with you is the one.
+
+01:49:34.280 --> 01:49:36.280
+Those are the big, low, deep, last vows
+
+01:49:36.280 --> 01:49:38.280
+Every promise you broke is the way
+
+01:49:38.280 --> 01:49:40.280
+Pulling you down
+
+01:49:44.280 --> 01:49:46.280
+You're tall like your home
+
+01:49:46.280 --> 01:49:48.280
+Evolution is a town but the facts in you
+
+01:49:48.280 --> 01:49:50.280
+That's the last criminal to love
+
+01:49:58.280 --> 01:50:00.280
+Cricket and Kusti
+
+01:50:00.280 --> 01:50:02.280
+Mixed together
+
+01:51:02.280 --> 01:51:05.720
+Hey me, all I can is call you your name
+
+01:51:07.720 --> 01:51:11.040
+Hey me, look me in the eye, set me up as a bitch
+
+01:51:11.040 --> 01:51:13.840
+Tell me I'll be broken like a woman
+
+01:51:13.840 --> 01:51:16.240
+Tell me why are you loving me
+
+01:51:16.240 --> 01:51:19.120
+I want you to be mine
+
+01:52:19.120 --> 01:52:49.120
+What is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this, what is this
+
+01:52:49.120 --> 01:52:56.120
+You made Veerabhadra stand next to you in the district competition, Naidu?
+
+01:52:57.120 --> 01:52:59.120
+Tomorrow is the national competition.
+
+01:53:00.120 --> 01:53:06.120
+If everything goes well, the one who has to save the country will be our man, right?
+
+01:53:07.120 --> 01:53:09.120
+Veerabhadra is my student.
+
+01:53:10.120 --> 01:53:14.120
+But the decision to send someone to the battlefield is mine.
+
+01:53:15.120 --> 01:53:16.120
+The decision is yours.
+
+01:53:16.120 --> 01:53:18.120
+But it's just Sangha.
+
+01:53:18.120 --> 01:53:21.120
+He should have an address in Thalukka, right?
+
+01:53:21.120 --> 01:53:23.120
+What are you saying?
+
+01:53:23.120 --> 01:53:27.120
+With the love on Kusthi, all of you have formed this Sangha.
+
+01:53:27.120 --> 01:53:30.120
+You are forgetting it and staying with our people.
+
+01:53:33.120 --> 01:53:34.120
+Okay, Naidu.
+
+01:53:34.120 --> 01:53:37.120
+You are saying this is a new beginning for us, right?
+
+01:53:37.120 --> 01:53:39.120
+Let's do one thing.
+
+01:53:39.120 --> 01:53:41.120
+No one from our village will go.
+
+01:53:41.120 --> 01:53:44.120
+But the one who goes, will go to our village?
+
+01:53:44.120 --> 01:53:46.120
+What do you mean, uncle?
+
+01:53:47.120 --> 01:53:48.120
+Ask him to say yes.
+
+01:53:48.120 --> 01:53:51.120
+We'll send him as a member of the IJNR.
+
+01:53:51.120 --> 01:53:52.120
+How is that possible?
+
+01:53:52.120 --> 01:53:54.120
+Even the elders won't agree.
+
+01:53:54.120 --> 01:53:56.120
+He wants us to win the game.
+
+01:53:56.120 --> 01:53:58.120
+If we want to win the game too,
+
+01:53:58.120 --> 01:54:00.120
+we can't do it in IJNR.
+
+01:54:00.120 --> 01:54:02.120
+Hey, what did you say, IJNR?
+
+01:54:08.120 --> 01:54:09.120
+Let's go.
+
+01:54:10.120 --> 01:54:12.120
+Come on, let's go.
+
+01:54:14.120 --> 01:54:15.120
+Mother...
+
+01:54:17.120 --> 01:54:18.120
+This old man...
+
+01:54:19.120 --> 01:54:21.120
+He plays to remember the city of Vijayanagara.
+
+01:54:24.120 --> 01:54:27.120
+From today, the old man is the heart of the city of Vijayanagara.
+
+01:54:32.120 --> 01:54:34.120
+If you talk, it will be in your legs.
+
+01:54:35.120 --> 01:54:37.120
+If you talk, it will be permanent.
+
+01:54:38.120 --> 01:54:39.120
+Come on, play.
+
+01:54:42.120 --> 01:54:44.120
+If you don't believe me, I'll kill you
+
+01:54:48.120 --> 01:54:53.120
+I told you. He can't change his game. He can't change his town.
+
+01:54:53.120 --> 01:54:55.120
+If it is necessary, tomorrow he will come.
+
+01:55:17.120 --> 01:55:20.120
+If he doesn't come back, he'll even change his mother.
+
+01:55:22.120 --> 01:55:23.120
+Swartha is my son.
+
+01:55:24.120 --> 01:55:26.120
+How can I work with someone like him?
+
+01:55:32.120 --> 01:55:33.120
+Let's go sir.
+
+01:55:34.120 --> 01:55:36.120
+That day they sent him to district office, right?
+
+01:55:37.120 --> 01:55:38.120
+Did he play for the state?
+
+01:55:39.120 --> 01:55:41.120
+Not for the state sir, he played for the nation.
+
+01:55:42.120 --> 01:55:44.120
+Did he play for the nationals?
+
+01:55:44.120 --> 01:55:46.760
+If you fight with a big shot like Vijaynagar,
+
+01:55:46.800 --> 01:55:50.000
+Do you know what Gowrinaidu has done for a big shot like him, sir?
+
+01:55:50.920 --> 01:55:56.360
+To all the brave men in Vijaynagar who thought the Kusti game was over,
+
+01:55:56.400 --> 01:55:58.000
+Gowrinaidu's challenge is,
+
+01:55:58.040 --> 01:56:00.520
+Whether the winner or the loser,
+
+01:56:00.560 --> 01:56:03.040
+Whether the loser or the one who wants to win,
+
+01:56:03.080 --> 01:56:05.400
+No matter how great a champion he is,
+
+01:56:05.440 --> 01:56:08.760
+If my disciple wins against him till the end of his life,
+
+01:56:08.800 --> 01:56:12.200
+The moment I win from Shishodiya,
+
+01:56:12.200 --> 01:56:15.080
+I'll come all the way to his village and break his legs.
+
+01:56:15.160 --> 01:56:17.440
+This is the question of Gowranaid.
+
+01:56:17.520 --> 01:56:20.520
+All India Resign Federation Chairmen.
+
+01:56:20.960 --> 01:56:23.480
+Tell them that Anadheer Shishodiya has said it.
+
+01:56:23.560 --> 01:56:25.040
+Is Gowranaid the one who has asked the question?
+
+01:56:33.120 --> 01:56:36.000
+To ask questions is like asking a question to Shishodiya.
+
+01:56:36.680 --> 01:56:39.600
+If Gowranaid asks questions like that,
+
+01:56:39.840 --> 01:56:41.520
+it is not the country.
+
+01:56:41.520 --> 01:56:49.520
+For me, there is no one in this country who doesn't want to be a part of it.
+
+01:56:50.520 --> 01:56:55.520
+It is a proud nation, but it has no respect for the children.
+
+01:56:57.520 --> 01:57:02.520
+Every year, a thousand corpses are thrown to save that child.
+
+01:57:03.520 --> 01:57:04.520
+That year...
+
+01:57:04.520 --> 01:57:05.520
+I will kill him.
+
+01:58:04.520 --> 01:58:07.520
+I don't know who held my leg till then.
+
+01:58:09.520 --> 01:58:14.520
+But that day he made me run away and made me hold Naidu's leg.
+
+01:58:15.520 --> 01:58:17.520
+I will never forget that.
+
+01:58:17.520 --> 01:58:18.520
+Yes, father.
+
+01:58:29.520 --> 01:58:33.520
+I will win! I will win! I will win!
+
+01:58:33.520 --> 01:58:37.520
+I will win! I will win!
+
+01:58:56.520 --> 01:58:57.520
+Who are you?
+
+01:59:11.520 --> 01:59:13.520
+Why are you washing your hands?
+
+01:59:13.520 --> 01:59:15.520
+Why don't you catch a fish?
+
+01:59:16.520 --> 01:59:18.520
+Ammu, I can't catch fish with you
+
+01:59:20.520 --> 01:59:22.520
+Vastak, for whom are you here?
+
+01:59:22.520 --> 01:59:24.520
+Why didn't anyone come from there?
+
+01:59:24.520 --> 01:59:26.520
+He won't come.
+
+01:59:27.520 --> 01:59:29.520
+He won't let anyone come.
+
+01:59:30.520 --> 01:59:32.520
+Rana Dheershi Sodhiya.
+
+01:59:33.520 --> 01:59:35.520
+Every disciple he created,
+
+01:59:35.520 --> 01:59:37.520
+brought a golden life.
+
+01:59:38.520 --> 01:59:40.520
+But why did I question him?
+
+01:59:40.520 --> 01:59:42.520
+That's what happened.
+
+01:59:42.520 --> 01:59:43.520
+Ranga.
+
+01:59:43.520 --> 01:59:44.520
+Yes sir.
+
+01:59:44.520 --> 01:59:45.520
+Here.
+
+01:59:46.520 --> 01:59:49.520
+He selected you for the nationals.
+
+01:59:49.520 --> 01:59:51.520
+What sir?
+
+01:59:54.520 --> 01:59:56.520
+What happened to you?
+
+02:00:00.000 --> 02:00:01.000
+Ustaad!
+
+02:00:01.200 --> 02:00:04.480
+Our IJNAROBHALWAMPATI NATIONAL SUBSTITUTE AND SINGERBANGA
+
+02:00:04.480 --> 02:00:06.520
+BALLA AADULAXMI KHABAPUTTAM VARCHE
+
+02:00:06.520 --> 02:00:08.520
+GANA BAJANA
+
+02:00:30.000 --> 02:00:32.000
+There are so many ways to do it
+
+02:00:32.000 --> 02:00:34.000
+It's normal for a human being
+
+02:00:34.000 --> 02:00:36.000
+It's your place to come and go
+
+02:00:36.000 --> 02:00:38.000
+Don't shout, don't shout, don't shout
+
+02:00:38.000 --> 02:00:40.000
+Why are you getting angry?
+
+02:00:40.000 --> 02:00:42.000
+Come to me
+
+02:01:28.000 --> 02:01:29.280
+Will you eat it all?
+
+02:01:29.280 --> 02:01:31.280
+Don't eat it all, don't eat it all
+
+02:01:31.280 --> 02:01:34.280
+Will you kiss me once?
+
+02:01:34.280 --> 02:01:36.960
+Will you tell me to come in the rain?
+
+02:01:36.960 --> 02:01:38.960
+Don't be angry, don't be angry
+
+02:01:38.960 --> 02:01:42.960
+Go away, don't be angry
+
+02:01:42.960 --> 02:01:44.960
+This is also the same
+
+02:01:46.960 --> 02:01:48.960
+If that is also the same
+
+02:01:48.960 --> 02:01:50.960
+Why did you give birth to me?
+
+02:01:50.960 --> 02:01:52.960
+Hello! Hello! Hello! Hello!
+
+02:01:52.960 --> 02:01:54.960
+Will you come?
+
+02:01:54.960 --> 02:01:56.960
+I want to meet you
+
+02:01:56.960 --> 02:02:04.960
+Don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy, don't be shy,
+
+02:02:34.960 --> 02:02:36.960
+Let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go, let's go.
+
+02:03:04.960 --> 02:03:06.960
+You are my life, my life
+
+02:03:20.960 --> 02:03:22.960
+You are my life
+
+02:03:34.960 --> 02:03:36.960
+I'll be back in a minute.
+
+02:04:02.960 --> 02:04:09.960
+Now you are crossing the state, tomorrow you will cross the country.
+
+02:04:09.960 --> 02:04:16.960
+After that, who will become the greatest man in the world?
+
+02:04:16.960 --> 02:04:20.960
+The greatest man in the world is my friend.
+
+02:04:22.960 --> 02:04:27.960
+Hey, don't shout. It's enough that you drank. Go and sleep.
+
+02:04:27.960 --> 02:04:28.960
+Hold this.
+
+02:04:29.960 --> 02:04:30.960
+I'm an expert.
+
+02:04:31.960 --> 02:04:32.960
+Go home.
+
+02:04:50.960 --> 02:04:52.960
+How are you, Ranath Irsi Surya?
+
+02:04:57.960 --> 02:05:13.960
+I know that you defeated me in those days, but today the whole country knows that I am defeating you.
+
+02:05:27.960 --> 02:05:29.960
+I've got to pull a sugan time on my brother
+
+02:05:29.960 --> 02:05:31.960
+I'm in the trouble now you in trouble
+
+02:05:31.960 --> 02:05:33.960
+You're in my heart, you're in my mind
+
+02:05:33.960 --> 02:05:35.960
+I'll teach you a lesson, I'll teach you a lesson
+
+02:05:53.960 --> 02:05:57.960
+This is the sign of victory for Rajasthan.
+
+02:06:00.960 --> 02:06:06.960
+In the semi-final, the match between Rajasthan's Ratan and Andhra Pradesh will take place.
+
+02:06:23.960 --> 02:06:53.960
+Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Bigger, Big
+
+02:06:53.960 --> 02:06:57.960
+I have heard a lot of such shouts and cries
+
+02:06:58.960 --> 02:07:01.960
+When people were coming from the village under the hill
+
+02:07:03.960 --> 02:07:07.960
+I heard the last shouts of a man who fell into a pit
+
+02:07:07.960 --> 02:07:09.960
+If you go to work and play hooliganism
+
+02:07:09.960 --> 02:07:11.960
+Your salary is more than half
+
+02:07:11.960 --> 02:07:15.960
+I heard the shouts of my mother shouting that the hill is my son
+
+02:07:15.960 --> 02:07:22.960
+I heard the last shout of my father Suri to stop the train
+
+02:07:23.960 --> 02:07:28.960
+What I want now is not screams and screams, but silence.
+
+02:07:29.960 --> 02:07:33.960
+We need two minutes of silence to say something.
+
+02:07:34.960 --> 02:07:38.960
+Do you know how many times I have played the role of a playboy even when I was working in Bellam Chitti?
+
+02:07:39.960 --> 02:07:46.960
+Once I start playing, no one will see my village, no one will see my tribe, no one will see my caste.
+
+02:07:47.960 --> 02:07:49.960
+They will remember me as a playboy.
+
+02:07:49.960 --> 02:07:53.000
+That's why I agreed to play with the
+
+02:07:53.000 --> 02:07:55.000
+IJ Nagaram Gurdwara team, Ustad.
+
+02:07:55.000 --> 02:07:58.000
+Why didn't you love your village so much and
+
+02:07:58.000 --> 02:08:00.000
+tell them about it?
+
+02:08:02.000 --> 02:08:04.000
+I didn't want to give them hope, Ustad.
+
+02:08:05.000 --> 02:08:07.000
+I wanted to give them victory.
+
+02:08:08.000 --> 02:08:11.000
+The whole world listens to the words of the winner, right?
+
+02:08:11.000 --> 02:08:14.000
+I will give them that one victory, Ustad.
+
+02:08:14.000 --> 02:08:44.000
+Come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come on, come
+
+02:08:44.000 --> 02:08:46.000
+This is also not enough.
+
+02:08:53.000 --> 02:08:59.000
+If you want to wash Naidu's feet, you have to hold the feet of an elder person.
+
+02:08:59.000 --> 02:09:01.000
+What are you saying?
+
+02:09:03.000 --> 02:09:08.000
+If you hold me tight, you have to hold the feet of an elder person.
+
+02:09:11.000 --> 02:09:12.000
+Go and sleep.
+
+02:09:14.000 --> 02:09:16.000
+Hey, what are you doing?
+
+02:09:16.000 --> 02:09:18.000
+Leave me.
+
+02:09:18.000 --> 02:09:20.000
+You are my brother.
+
+02:09:20.000 --> 02:09:22.000
+Because of you, I am going to die.
+
+02:09:22.000 --> 02:09:24.000
+Because of you.
+
+02:09:26.000 --> 02:09:28.000
+I saw how you are going to play this game.
+
+02:09:42.000 --> 02:09:54.000
+You are welcome in the semi-finals of the game, this is the first round of the semi-finals.
+
+02:09:54.000 --> 02:09:58.000
+This is the first time I have seen a person who has a lot of experience in this field.
+
+02:10:16.000 --> 02:10:20.000
+This is the first time I have seen this kind of action in my life.
+
+02:10:38.000 --> 02:10:42.000
+This is the first time I've ever seen a man like him in real life.
+
+02:10:42.000 --> 02:10:44.000
+He's a real man.
+
+02:11:06.000 --> 02:11:11.960
+With the help of this man, I've made him my son-in-law.
+
+02:11:12.000 --> 02:11:13.080
+Well done, son-in-law.
+
+02:11:13.120 --> 02:11:14.120
+Well done.
+
+02:11:15.160 --> 02:11:17.680
+What are you saying, son-in-law?
+
+02:11:17.720 --> 02:11:20.320
+I'll beat him up and bring him here.
+
+02:11:20.360 --> 02:11:21.480
+Well done, son-in-law.
+
+02:11:21.520 --> 02:11:22.000
+I'll come.
+
+02:11:22.040 --> 02:11:22.800
+That's it.
+
+02:11:22.840 --> 02:11:24.640
+You know where the target is, right?
+
+02:11:24.680 --> 02:11:25.800
+On whom?
+
+02:11:25.840 --> 02:11:26.640
+Get lost.
+
+02:13:06.000 --> 02:13:15.000
+After two rounds, both the players are on the same level.
+
+02:13:15.000 --> 02:13:19.000
+Now, let's see who wins the third round and reaches the final.
+
+02:13:19.000 --> 02:13:21.000
+Prithi!
+
+02:13:23.000 --> 02:13:25.000
+Didn't you lose your leg?
+
+02:13:27.000 --> 02:13:29.000
+Well done!
+
+02:13:30.000 --> 02:13:32.000
+How will you win the next round?
+
+02:13:32.000 --> 02:13:34.000
+Target his leg.
+
+02:13:34.000 --> 02:13:37.000
+Pethi, this is the end of the attacking game.
+
+02:13:37.000 --> 02:13:38.000
+Fight!
+
+02:13:39.000 --> 02:13:41.000
+Pethi, Pethi, Pethi, Pethi, get up!
+
+02:13:41.000 --> 02:13:44.000
+The third, final and decisive round has begun.
+
+02:13:44.000 --> 02:13:46.000
+Pethi seems to be getting hurt.
+
+02:13:47.000 --> 02:13:52.000
+Pethi seems to be hurt because of Shashodiya's constant attacks on his feet.
+
+02:13:52.000 --> 02:13:53.000
+What is this?
+
+02:13:53.000 --> 02:13:57.000
+The two Shashodiyas are laughing and trying to attack Pethi on their own.
+
+02:13:57.000 --> 02:13:59.000
+They are torturing him.
+
+02:13:59.000 --> 02:14:01.000
+Pethi seems to be in a lot of pain.
+
+02:14:01.000 --> 02:14:03.000
+It seems that he has hurt his feet a lot.
+
+02:14:03.000 --> 02:14:06.000
+Reddy's game has completely changed.
+
+02:14:06.000 --> 02:14:09.000
+He is now trying to hide his left foot.
+
+02:14:09.000 --> 02:14:14.000
+Reddy's condition is such that he won't be able to beat his father-in-law.
+
+02:14:32.000 --> 02:14:35.000
+This is the first time I've seen this kind of action in my life.
+
+02:15:31.000 --> 02:15:33.000
+The match is going to be a great one.
+
+02:15:55.000 --> 02:15:58.000
+Even though he is small, he is so dedicated.
+
+02:15:58.000 --> 02:16:00.000
+But what are we seeing here?
+
+02:16:00.000 --> 02:16:02.000
+He has become a man.
+
+02:16:04.000 --> 02:16:07.000
+The medical team needs to reach the patient.
+
+02:16:23.000 --> 02:16:25.000
+Madan Sir, Madan has won!
+
+02:16:47.000 --> 02:16:50.000
+National Wrestling Championship 1992 final
+
+02:16:50.000 --> 02:16:52.000
+Diti has won the final.
+
+02:16:52.000 --> 02:16:58.000
+Adhrakudas's daughter has defeated Punjab's Sumedar Singh and named her as Swarmada.
+
+02:17:09.000 --> 02:17:11.000
+Ustad!
+
+02:17:18.000 --> 02:17:19.000
+Diti!
+
+02:17:20.000 --> 02:17:21.000
+Pithi, get up.
+
+02:17:22.200 --> 02:17:23.200
+Go to sleep.
+
+02:17:24.000 --> 02:17:25.000
+Pithi.
+
+02:17:25.400 --> 02:17:27.000
+What are you saying, master?
+
+02:17:27.400 --> 02:17:28.400
+You are hurt.
+
+02:17:29.400 --> 02:17:30.400
+Tell me.
+
+02:17:33.200 --> 02:17:34.600
+Pithi, listen to me.
+
+02:17:34.600 --> 02:17:36.000
+What are you saying, master?
+
+02:17:41.000 --> 02:17:42.000
+Pithi.
+
+02:17:42.000 --> 02:17:43.000
+Sit down.
+
+02:17:54.000 --> 02:17:55.000
+What happened, sir?
+
+02:17:57.000 --> 02:17:58.000
+What happened?
+
+02:18:01.000 --> 02:18:02.000
+Mr. Piddi.
+
+02:18:03.000 --> 02:18:04.000
+Do you need any rest?
+
+02:18:05.000 --> 02:18:06.000
+Rest? What rest, doctor?
+
+02:18:07.000 --> 02:18:08.000
+You have to finish it, right?
+
+02:18:09.000 --> 02:18:10.000
+Tell me, sir.
+
+02:18:10.000 --> 02:18:11.000
+Piddi, you have to finish it, doctor.
+
+02:18:12.000 --> 02:18:13.640
+No, calm down.
+
+02:18:14.600 --> 02:18:17.800
+The main nerve in your right leg is not working.
+
+02:18:17.800 --> 02:18:19.200
+It's been damaged due to injury.
+
+02:18:21.760 --> 02:18:29.480
+The whole nerve has been damaged since a long time.
+
+02:18:29.920 --> 02:18:34.000
+That's why you can't stand on that leg.
+
+02:18:34.280 --> 02:18:37.600
+Another big issue is that even in such severe damage,
+
+02:18:37.600 --> 02:18:41.480
+it's not that easy for you to get so far in the auto.
+
+02:18:41.480 --> 02:18:44.280
+But I am sorry to say, you are unfit for the game.
+
+02:18:47.240 --> 02:18:48.760
+You are useless for the game.
+
+02:18:49.560 --> 02:18:53.000
+Why can't I play the game, doctor?
+
+02:18:54.600 --> 02:18:56.200
+Doctor, what are you saying?
+
+02:18:56.840 --> 02:18:59.400
+Why can't I play the game?
+
+02:19:00.440 --> 02:19:02.120
+Don't talk about that.
+
+02:19:02.200 --> 02:19:03.800
+I can't play the game, doctor.
+
+02:19:07.400 --> 02:19:09.960
+Why can't I play the game, doctor?
+
+02:19:10.040 --> 02:19:11.080
+I can't play the game.
+
+02:19:11.480 --> 02:19:13.480
+Let's go, Pithi.
+
+02:19:14.480 --> 02:19:15.480
+Pithi.
+
+02:19:39.480 --> 02:19:41.480
+I'll show him. I'll bring him here.
+
+02:19:44.480 --> 02:19:45.480
+I'll bring him here.
+
+02:19:45.480 --> 02:19:46.480
+What will you do?
+
+02:19:47.480 --> 02:19:48.480
+Don't cut him.
+
+02:19:52.480 --> 02:19:53.480
+Hold him.
+
+02:19:53.480 --> 02:19:55.480
+I'll see him again.
+
+02:20:02.480 --> 02:20:03.480
+Take him.
+
+02:20:05.480 --> 02:20:06.480
+Go and see the doctor.
+
+02:20:06.480 --> 02:20:08.480
+Don't do anything.
+
+02:20:08.480 --> 02:20:38.480
+Doctor, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I beg you, I
+
+02:20:38.480 --> 02:20:40.720
+His leg is useless for the game.
+
+02:20:41.080 --> 02:20:42.600
+So, better take care of him.
+
+02:20:50.440 --> 02:20:52.000
+I will come. I will come.
+
+02:20:54.440 --> 02:20:55.200
+Biddi.
+
+02:20:56.760 --> 02:20:57.960
+You can play here.
+
+02:21:31.680 --> 02:21:33.680
+Oh my God!
+
+02:21:48.680 --> 02:21:49.680
+Give me some tea.
+
+02:21:51.680 --> 02:21:52.680
+Sir.
+
+02:21:54.680 --> 02:21:56.680
+What else do you have to say?
+
+02:21:56.680 --> 02:21:58.680
+What else do I have to hear?
+
+02:21:59.680 --> 02:22:00.680
+Not that sir.
+
+02:22:00.680 --> 02:22:04.680
+By the way, how far did you take me to tell the story of this loser?
+
+02:22:04.680 --> 02:22:08.680
+How did he become the favourite player of so many people?
+
+02:22:08.680 --> 02:22:10.680
+Listen to me sir
+
+02:22:12.680 --> 02:22:13.680
+Give me tea
+
+02:22:17.680 --> 02:22:18.680
+Sir, take it
+
+02:22:30.680 --> 02:22:33.680
+Why are you here for him when he has stopped there, sir?
+
+02:22:36.680 --> 02:22:37.680
+That day...
+
+02:22:57.680 --> 02:23:03.680
+On that day, the owner of the house which was given to me by the people of Vijayararangur
+
+02:23:03.680 --> 02:23:05.680
+and the government gave me the job,
+
+02:23:05.680 --> 02:23:07.680
+even the GM who gave me the last payment,
+
+02:23:07.680 --> 02:23:09.680
+has agreed, sir.
+
+02:23:09.680 --> 02:23:11.680
+Please forgive us, Pethi.
+
+02:23:11.680 --> 02:23:15.680
+We don't need anyone like you in our village.
+
+02:23:15.680 --> 02:23:17.680
+Let's go back to our village.
+
+02:23:21.680 --> 02:23:23.680
+I can't stay away from you forever, right?
+
+02:23:23.680 --> 02:23:25.680
+I'll come by train.
+
+02:23:25.680 --> 02:23:27.680
+He said he will come to the railway.
+
+02:23:28.680 --> 02:23:29.680
+How?
+
+02:23:55.680 --> 02:24:00.680
+You should come back as the winner
+
+02:24:00.680 --> 02:24:01.680
+Railways station?
+
+02:24:03.680 --> 02:24:06.680
+Look dear, it is not a good idea to build a house
+
+02:24:06.680 --> 02:24:08.680
+Otherwise, he wants a pension
+
+02:24:08.680 --> 02:24:10.680
+Why are you asking for a railway station?
+
+02:24:10.680 --> 02:24:13.680
+He will not be able to do your work with anyone
+
+02:24:13.680 --> 02:24:15.680
+He will be able to do it with the Central Railway Minister
+
+02:24:15.680 --> 02:24:16.680
+Go, go there
+
+02:24:16.680 --> 02:24:19.680
+Don't get tired
+
+02:24:19.680 --> 02:24:26.680
+You have to come back as the victory
+
+02:24:26.680 --> 02:24:31.680
+Let the morning go, let the limits come
+
+02:24:31.680 --> 02:24:36.680
+Step forward
+
+02:24:36.680 --> 02:24:42.680
+Is it far or is it just a dream?
+
+02:24:42.680 --> 02:24:45.680
+This work is not in my hands
+
+02:24:45.680 --> 02:25:15.680
+I will give strength to this hill, I will stand and fight for you, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will be ours, come, victory will
+
+02:25:15.680 --> 02:25:18.680
+I will be your Guru
+
+02:25:18.680 --> 02:25:22.680
+You can think any work you do for the sake of the village as a humiliation
+
+02:25:22.680 --> 02:25:26.680
+But consider it as a form of self-respect
+
+02:25:26.680 --> 02:25:34.680
+The light should be filled in the moments of tomorrow
+
+02:25:34.680 --> 02:25:40.680
+Don't stop your journey, don't give up
+
+02:25:40.680 --> 02:25:46.680
+Come to me, my native land
+
+02:25:51.680 --> 02:25:57.680
+Come to me, my wish
+
+02:26:27.680 --> 02:26:35.680
+As a listener, I will listen to you like a bird
+
+02:26:35.680 --> 02:26:41.680
+Even if your dreams are shattered
+
+02:26:41.680 --> 02:26:44.680
+I will be the sun in your heart
+
+02:26:44.680 --> 02:26:47.680
+Whoever listens
+
+02:26:57.680 --> 02:27:27.680
+Don't stop, don't give up, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't stop, don't
+
+02:27:27.680 --> 02:27:30.680
+Sir, I don't see any other way out. Please forgive me, sir.
+
+02:27:30.680 --> 02:27:31.680
+What work do you have?
+
+02:27:31.680 --> 02:27:35.680
+I'm from the village, sir. I need a railway station, sir.
+
+02:27:35.680 --> 02:27:36.680
+Where are you from?
+
+02:27:36.680 --> 02:27:38.680
+I'm from Kondukundur, sir.
+
+02:27:38.680 --> 02:27:39.680
+Which one?
+
+02:27:39.680 --> 02:27:42.680
+I'm from the village, sir. My name is Nish, sir.
+
+02:27:42.680 --> 02:27:43.680
+I'm from Kottimple, sir.
+
+02:27:43.680 --> 02:27:44.680
+Where are you from?
+
+02:27:44.680 --> 02:27:45.680
+I'm from Kondukundur, sir.
+
+02:27:55.680 --> 02:27:58.680
+Yes, my name is Sircaro, I don't remember Sircaro
+
+02:27:59.680 --> 02:28:03.680
+3 years back, match from wrestling, semi-final, winner Sircaro
+
+02:28:03.680 --> 02:28:04.680
+Look
+
+02:28:08.680 --> 02:28:09.680
+Dad, champion Sircaro
+
+02:28:14.680 --> 02:28:15.680
+Silver medalist?
+
+02:28:16.680 --> 02:28:19.680
+Yes sir, what is a silver medal?
+
+02:28:20.680 --> 02:28:22.680
+You said you don't remember
+
+02:28:22.680 --> 02:28:27.680
+After the final game, he must have been given a certificate as a reminder of his defeat.
+
+02:28:27.680 --> 02:28:29.680
+He must have also got a job as a government officer.
+
+02:28:29.680 --> 02:28:33.680
+Sir, I didn't lose.
+
+02:28:33.680 --> 02:28:37.680
+My name didn't get ruined.
+
+02:28:37.680 --> 02:28:40.680
+I couldn't play the final match, but I didn't lose.
+
+02:28:40.680 --> 02:28:48.680
+There is a reason to say that you lost.
+
+02:28:48.680 --> 02:28:50.680
+But the decision of victory.
+
+02:28:52.680 --> 02:29:22.680
+Sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir..sir
+
+02:29:22.680 --> 02:29:23.680
+What is your name?
+
+02:29:23.680 --> 02:29:24.680
+My name is Gopi
+
+02:29:50.680 --> 02:29:52.680
+He has come to Vijaynagar?
+
+02:30:00.000 --> 02:30:03.000
+This is the first time I've seen a car like this in my life.
+
+02:30:03.000 --> 02:30:05.000
+I've never seen a car like this in my life.
+
+02:31:59.000 --> 02:32:00.000
+Who are you?
+
+02:32:10.000 --> 02:32:18.000
+What is the meaning of this song?
+
+02:32:31.000 --> 02:32:35.000
+In those ages, the playboy has come back to life.
+
+02:32:35.000 --> 02:32:41.000
+He may be new to the game, but he is not new to the game, sir.
+
+02:33:05.000 --> 02:33:08.000
+Don't worry, dear. Your son is born.
+
+02:33:13.000 --> 02:33:16.000
+Why is he born without legs?
+
+02:33:22.000 --> 02:33:25.000
+He is a man who has climbed mountains for many years.
+
+02:33:25.000 --> 02:33:28.000
+He is getting used to any game.
+
+02:33:29.000 --> 02:33:32.000
+I know what is the game he is playing this time.
+
+02:33:32.000 --> 02:33:34.320
+I know, sir. Wait, sir.
+
+02:33:46.200 --> 02:33:48.040
+I'll tell you now, sir.
+
+02:33:48.120 --> 02:33:49.840
+My name is Kurumaiah.
+
+02:33:49.920 --> 02:33:52.480
+You can call me anything you want, sir.
+
+02:34:02.000 --> 02:34:04.000
+It's a game, sir.
+
+02:34:30.000 --> 02:35:00.000
+There is no caste, no religion, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste, no caste
+
+02:35:00.000 --> 02:35:03.000
+What is this?
+
+02:35:03.000 --> 02:35:07.000
+For any girl, a boy is her husband.
+
+02:35:07.000 --> 02:35:12.000
+Even if you love your mother, she is your husband.
+
+02:35:12.000 --> 02:35:16.000
+If you want to build a big house, you can build a big house.
+
+02:35:28.000 --> 02:35:32.120
+I wanted to build a big house, but I didn't have the guts to do that.
+
+02:35:32.440 --> 02:35:35.120
+I never saw girls like that.
+
+02:35:35.480 --> 02:35:39.400
+The stage is set for the 1996 Delhi Paralyzation Games.
+
+02:35:39.480 --> 02:35:41.800
+And all eyes are on this final.
+
+02:35:43.080 --> 02:35:47.320
+Eight athletes, each one with a story and each one with a dream,
+
+02:35:47.400 --> 02:35:50.840
+are competing in this thrilling 400 meter race.
+
+02:35:51.200 --> 02:35:52.200
+Sit there.
+
+02:35:52.800 --> 02:35:53.800
+Sit.
+
+02:35:58.000 --> 02:36:00.000
+StSq2 2.60 2.00
+
+02:36:28.000 --> 02:36:32.000
+It's a very wide ball, of course, it may end in a 400m final.
+
+02:36:32.000 --> 02:36:35.000
+The home crowd adventure is back.
+
+02:36:35.000 --> 02:36:41.000
+But he has to compete with lead runners from China, Pakistan and Sri Lanka.
+
+02:36:41.000 --> 02:36:43.000
+On your mark.
+
+02:37:28.000 --> 02:37:29.560
+Come on, let's go together.
+
+02:38:28.000 --> 02:38:32.000
+Do you know why we sing for a single rupee?
+
+02:38:32.000 --> 02:38:34.000
+Rupee is your money.
+
+02:38:58.000 --> 02:38:59.000
+Oh, my God!
+
+02:40:28.000 --> 02:40:32.280
+May days back on speed, a highly impossible task ahead for you.
+
+02:40:58.000 --> 02:41:02.000
+It's a battle against time that Pandy mentioned is one of the best bits.
+
+02:41:02.000 --> 02:41:05.000
+Pandy closes the gap, a strike by a strike.
+
+02:41:05.000 --> 02:41:08.000
+5-3-2, he ties the leading back.
+
+02:41:08.000 --> 02:41:11.000
+Neck to neck, shot by shot.
+
+02:41:11.000 --> 02:41:14.000
+Pandy takes the lead.
+
+02:41:26.000 --> 02:41:29.240
+Big bag! Neck to neck! Shoulder to shoulder!
+
+02:41:29.240 --> 02:41:32.240
+All of them are killing everyone trying to help them!
+
+02:41:42.880 --> 02:41:47.080
+Oh my God! Four athletes picked the line together!
+
+02:41:47.080 --> 02:41:48.920
+It's impossible to call!
+
+02:41:48.920 --> 02:41:51.440
+The referee signals for a photo finish!
+
+02:41:51.440 --> 02:41:54.680
+Nobody can say with the naked eye who has won the race!
+
+02:41:54.680 --> 02:41:58.360
+Let's look at the replay. The final 100 meters in slow motion.
+
+02:42:00.520 --> 02:42:02.120
+It's 2-4 finish.
+
+02:42:02.120 --> 02:42:03.640
+You can't see the bearer.
+
+02:42:03.640 --> 02:42:06.200
+All are waiting for the finish announcement.
+
+02:42:06.840 --> 02:42:08.520
+Here comes the free-spree.
+
+02:42:08.520 --> 02:42:10.040
+The moment of truth.
+
+02:42:10.040 --> 02:42:11.160
+Who takes it?
+
+02:42:11.160 --> 02:42:12.680
+It's Paddy Winscott.
+
+02:42:12.680 --> 02:42:15.640
+The winner of the first set of three games.
+
+02:42:15.640 --> 02:42:16.760
+From a ball.
+
+02:42:24.680 --> 02:42:25.680
+Hey!
+
+02:42:30.680 --> 02:42:32.680
+What a hero! What a name!
+
+02:42:32.680 --> 02:42:34.680
+What a wonderful name!
+
+02:43:00.680 --> 02:43:02.680
+You are the pride of India.
+
+02:43:30.680 --> 02:43:32.680
+I'm not going to let you get away with this.
+
+02:43:54.680 --> 02:43:56.680
+I'm going to let you get away with this.
+
+02:44:28.680 --> 02:44:29.680
+What is it?
+
+02:44:37.680 --> 02:44:38.680
+What?
+
+02:44:38.680 --> 02:44:39.680
+Isn't he Indian?
+
+02:44:45.680 --> 02:44:49.680
+This Pethi is not an Indian, Sir.
+
+02:44:54.680 --> 02:44:55.680
+Mr. Pethi, you are from Andhra Pradesh.
+
+02:44:55.680 --> 02:44:56.680
+You are from Andhra Pradesh.
+
+02:45:02.680 --> 02:45:03.680
+Isn't this India?
+
+02:45:24.680 --> 02:45:28.680
+That's why our village should be in India, right, Sarkar?
+
+02:45:39.680 --> 02:45:41.680
+Why is this man running so far?
+
+02:45:43.680 --> 02:45:46.680
+Not to tell the world about my prestige,
+
+02:45:48.680 --> 02:45:52.680
+but to tell the whole country about my village.
+
+02:45:54.680 --> 02:46:00.680
+If you want to live in a good place, when will the country get better, sir?
+
+02:46:22.680 --> 02:46:24.680
+When will the country get better?
+
+02:46:27.680 --> 02:46:30.680
+Your Indian government can fly anywhere in the sky
+
+02:46:31.680 --> 02:46:34.680
+But they can't even walk to the village under the mountain
+
+02:46:40.680 --> 02:46:42.680
+I came here to know
+
+02:46:43.680 --> 02:46:45.680
+Like us in this country
+
+02:46:45.680 --> 02:46:47.680
+There is no address, no address
+
+02:46:47.680 --> 02:46:50.680
+There is a village in the middle of nowhere
+
+02:46:52.680 --> 02:47:09.680
+The tiger, the animal of the race, the catfish, the bird of the race,
+
+02:47:09.680 --> 02:47:14.680
+the respect and respect for the animals and birds born in this country,
+
+02:47:14.680 --> 02:47:18.680
+the lack of people living in the village under my roof, sir.
+
+02:47:18.680 --> 02:47:23.680
+He didn't even remember the dead body in our village.
+
+02:47:26.680 --> 02:47:30.680
+That day when I asked him about Appalachori's body,
+
+02:47:31.680 --> 02:47:34.680
+he didn't seem to remember a single thing.
+
+02:47:35.680 --> 02:47:39.680
+He seemed to remember the soul of our village.
+
+02:47:39.680 --> 02:47:57.680
+Sir, it seems that the British came to the station when the train stopped for fun and entertainment.
+
+02:47:57.680 --> 02:48:04.680
+When the Britishers came, our village people were sleeping under the mountain.
+
+02:48:04.680 --> 02:48:11.680
+If your government train had stopped for a minute at our village gates,
+
+02:48:11.680 --> 02:48:14.680
+which government did not recognize our village?
+
+02:48:14.680 --> 02:48:20.680
+The same government would have shared the name of our village when the train was leaving.
+
+02:48:20.680 --> 02:48:22.680
+We would have made the whole country go.
+
+02:48:22.680 --> 02:48:24.680
+At that time, our village would have a name.
+
+02:48:24.680 --> 02:48:26.680
+It would be Saluur Mandala.
+
+02:48:26.680 --> 02:48:28.680
+It would be the district of Vijayanagara.
+
+02:48:28.680 --> 02:48:30.680
+It would be the state of Atarapakha.
+
+02:48:30.680 --> 02:48:32.680
+At that time, sir,
+
+02:48:32.680 --> 02:48:34.680
+the village under this hill would grow and become Indian.
+
+02:48:38.680 --> 02:48:40.680
+The whole country would stand on one side.
+
+02:48:40.680 --> 02:48:42.680
+It would be two sides.
+
+02:48:44.680 --> 02:48:46.680
+When one war happened.
+
+02:48:46.680 --> 02:48:48.680
+When two wars happened.
+
+02:48:48.680 --> 02:48:56.680
+You all think that I am just a game, but I am a struggle, sir.
+
+02:49:09.680 --> 02:49:15.680
+Even if you call me an Indian, please give a reminder to the elders, sir.
+
+02:49:18.680 --> 02:49:21.680
+Our memory is our soul
+
+02:49:22.680 --> 02:49:25.680
+Our memory is our golden life
+
+02:50:18.680 --> 02:50:24.680
+Your story is like a story that never ends
+
+02:50:24.680 --> 02:50:30.680
+It's a story that never ends
+
+02:50:30.680 --> 02:50:35.680
+Your name is like a song that never ends
+
+02:50:41.680 --> 02:50:49.680
+I thought my dreams would never come true
+
+02:50:51.680 --> 02:50:55.680
+You showed me the world in my dreams
+
+02:50:55.680 --> 02:50:59.680
+You brought me to heaven
+
+02:50:59.680 --> 02:51:02.680
+The train that took us to the temple
+
+02:51:02.680 --> 02:51:06.680
+Has stopped in front of our eyes for the first time
+
+02:51:06.680 --> 02:51:11.680
+You are the Goddess of the temple
+
+02:51:30.680 --> 02:51:32.680
+What is this, grandpa?
+
+02:51:35.680 --> 02:51:36.680
+What is it?
+
+02:51:37.680 --> 02:51:39.680
+Do you recognize this house again?
+
+02:51:44.680 --> 02:51:45.680
+What is this?
+
+02:52:28.680 --> 02:52:33.680
+It was the first time in the history of Indian Railways that a train was put on the train from Delhi.
+
+02:52:33.680 --> 02:52:38.680
+Not only that, your village also witnessed the station with the name of Perthi.
+
+02:52:41.680 --> 02:52:43.680
+I don't want the name of Perthi, sir.
+
+02:52:43.680 --> 02:52:44.680
+Then?
+
+02:52:47.680 --> 02:52:51.680
+As Appalasuri's memory, give me Appalavalasa station, sir.
+
+02:52:58.680 --> 02:53:05.680
+On that day, our lives started because of our elder brother.
+
+02:53:28.680 --> 02:53:29.680
+Post!
+
+02:53:55.680 --> 02:53:57.680
+It's not just my imagination, sir.
+
+02:53:57.680 --> 02:54:00.680
+It's the pride of our entire village.
+
+02:54:00.680 --> 02:54:01.680
+Let's go, sir.
+
+02:54:01.680 --> 02:54:03.680
+Let's not meet our old man.
+
+02:54:03.680 --> 02:54:05.680
+He's just two miles away.
+
+02:54:07.680 --> 02:54:11.680
+There's no need to meet. Let's go back.
+
+02:54:11.680 --> 02:54:13.680
+You're going back?
+
+02:54:13.680 --> 02:54:15.680
+Why are you going back, sir,
+
+02:54:15.680 --> 02:54:17.680
+instead of meeting your old man?
+
+02:54:21.680 --> 02:54:23.680
+I'm feeling shy, Gurmaya.
+
+02:54:25.680 --> 02:54:30.280
+To understand a great actor like Pethi wrongly.
+
+02:54:31.480 --> 02:54:32.680
+I understood.
+
+02:54:32.880 --> 02:54:36.280
+Whatever the problem is, we must face it first.
+
+02:54:41.080 --> 02:54:43.880
+Pethi faced his problem with a bat.
+
+02:54:44.480 --> 02:54:46.280
+He mixed it with a stick.
+
+02:54:46.480 --> 02:54:48.480
+He ran and hit the ground.
+
+02:54:49.080 --> 02:54:53.880
+He changed the way he looked at the auto by combining the great purpose of the game.
+
+02:54:55.680 --> 02:55:00.680
+What should I do now? He has told me everything
+
+02:55:01.680 --> 02:55:04.680
+Gurumaya, let's go
+
+02:55:04.680 --> 02:55:05.680
+Let's go.
+
+02:55:20.680 --> 02:55:21.680
+Narayan sir!
+
+02:55:22.680 --> 02:55:23.680
+Appalamala sir!
+
+02:55:24.680 --> 02:55:25.680
+Our village's name!
+
+02:55:26.680 --> 02:55:27.680
+Our elder son!
+
+02:55:27.680 --> 02:55:28.680
+Remember me, sir!
+
+02:55:29.680 --> 02:55:30.680
+Dad!
+
+02:55:30.680 --> 02:55:31.680
+What did you do, dear?
+
+02:55:31.680 --> 02:55:32.680
+You left in the morning, right?
+
+02:55:32.680 --> 02:55:34.680
+What have you been doing till now?
+
+02:55:34.680 --> 02:55:35.680
+I'll talk to sir.
+
+02:55:36.680 --> 02:55:37.680
+She's my daughter.
+
+02:55:37.680 --> 02:55:38.680
+She'll read my address.
+
+02:55:40.680 --> 02:55:41.680
+Bless you.
+
+02:55:41.680 --> 02:55:42.680
+Thank you.
+
+02:55:42.680 --> 02:55:43.680
+Kurma.
+
+02:55:43.680 --> 02:55:44.680
+It's good, sir.
+
+02:55:45.680 --> 02:55:47.680
+Kurma, where are you going?
+
+02:55:47.680 --> 02:55:49.680
+I'm going to the theatre.
+
+02:55:49.680 --> 02:55:50.680
+I'll be back in an hour.
+
+02:56:02.680 --> 02:56:07.680
+Kurumaya, the train has come to your village, right?
+
+02:56:07.680 --> 02:56:10.680
+Then why did you bring me along?
+
+02:56:10.680 --> 02:56:13.680
+If I had brought you here by foot,
+
+02:56:13.680 --> 02:56:16.680
+you wouldn't have known how important the train is.
+
+02:56:32.680 --> 02:56:56.680
+Music
+
+02:56:56.680 --> 02:56:59.680
+A farmer's struggle, a soldier's sacrifice
+
+02:56:59.680 --> 02:57:02.680
+Aata's spirit is the best part of the country.
+
+02:57:06.680 --> 02:57:08.680
+Will you beat me again?
+
+02:57:10.680 --> 02:57:11.680
+Tell me.
+
+02:57:19.680 --> 02:57:22.680
+We will hold the biggest rural campaign in the country.
+
+02:57:23.680 --> 02:57:26.680
+But we will search for Aata in this.
+
+02:57:26.680 --> 02:57:27.680
+Let's search for it.
+
+02:57:29.680 --> 02:57:31.680
+A political leader,
+
+02:57:32.680 --> 02:57:33.680
+to win it,
+
+02:57:33.680 --> 02:57:37.680
+he has to go home and ask for votes, right?
+
+02:57:39.680 --> 02:57:41.680
+Like that, we'll go to the villages
+
+02:57:41.680 --> 02:57:43.680
+and search for it like a game.
+
+02:57:45.680 --> 02:57:47.680
+So, should we go down to the village now?
+
+02:57:49.680 --> 02:57:52.680
+Going down to the village is not right.
+`;
+
+    const blob = new Blob([vttContent], { type: 'text/vtt' });
+    const vttUrl = URL.createObjectURL(blob);
+
+    const video = document.getElementById('player');
+    const track = document.createElement('track');
+    track.kind = 'subtitles';
+    track.label = 'English';
+    track.srclang = 'en';
+    track.src = vttUrl;
+    track.default = true;
+    video.appendChild(track);
+
+    video.textTracks[0] && (video.textTracks[0].mode = 'showing');
+    video.addEventListener('loadedmetadata', () => {
+      if (video.textTracks[0]) video.textTracks[0].mode = 'showing';
+    });
+  </script>
+</body>
+</html>
