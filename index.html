@@ -1,55 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Movie Player</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      font-family: sans-serif;
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#111;color:#fff;font-family:sans-serif;min-height:100vh}
+    .url-bar{
+      display:flex;gap:8px;padding:12px;
+      background:#1a1a1a;border-bottom:1px solid #333;
     }
-    h1 {
-      color: #fff;
-      font-size: 1rem;
-      padding: 10px;
-      opacity: 0.6;
+    .url-bar input{
+      flex:1;padding:10px 14px;border-radius:8px;
+      border:1px solid #444;background:#2a2a2a;
+      color:#fff;font-size:14px;outline:none;
     }
-    .player-wrap {
-      width: 100%;
-      max-width: 960px;
-      position: relative;
+    .url-bar input:focus{border-color:#6c63ff}
+    .url-bar button{
+      padding:10px 18px;border-radius:8px;border:none;
+      background:#6c63ff;color:#fff;font-size:14px;
+      cursor:pointer;white-space:nowrap;
     }
-    video {
-      width: 100%;
-      max-height: 90vh;
-      background: #000;
-      display: block;
+    .url-bar button:active{background:#5a52e0}
+    .player-wrap{
+      width:100%;background:#000;
+      display:flex;align-items:center;justify-content:center;
     }
-    video::cue {
-      background: rgba(0,0,0,0.75);
-      color: #fff;
-      font-size: 1.1em;
-      font-family: Arial, sans-serif;
+    video{width:100%;max-height:85vh;display:block}
+    video::cue{
+      background:rgba(0,0,0,0.8);color:#fff;
+      font-size:1em;font-family:Arial,sans-serif;
+    }
+    .msg{
+      text-align:center;padding:20px;color:#888;font-size:14px;
+    }
+    .msg a{color:#6c63ff}
+    .codec-warn{
+      display:none;background:#ff4444;color:#fff;
+      padding:10px;text-align:center;font-size:13px;
     }
   </style>
 </head>
 <body>
-  <div class="player-wrap">
-    <video id="player" controls preload="metadata" crossorigin="anonymous">
-      <source src="https://bcdn.hakunaymatata.com/resource/h265/ee6e82f04e8449935ab67a6b46e00801.mp4?sign=d1c2b226bb577ae854f3482012b69c63&t=1782099471" type="video/mp4" />
-      Your browser does not support video.
-    </video>
-  </div>
 
-  <script>
-    const vttContent = `WEBVTT
+<div class="url-bar">
+  <input id="urlInput" type="url" placeholder="Video URL paste කරන්න..." />
+  <button onclick="loadVideo()">▶ Play</button>
+</div>
+
+<div class="codec-warn" id="codecWarn">
+  ⚠️ H265 codec Android Chrome හි support නෑ. VLC app හෝ Firefox try කරන්න.
+</div>
+
+<div class="player-wrap">
+  <video id="player" controls preload="metadata" playsinline crossorigin="anonymous">
+    Your browser does not support video.
+  </video>
+</div>
+
+<div class="msg">
+  Video URL paste කරලා Play 누ඩ්ඩන්න 👆<br><br>
+  H265 video නම් → <a href="intent://play#Intent;scheme=vlc;end">VLC App</a> try කරන්න
+</div>
+
+<script>
+const vttContent = `WEBVTT
 
 00:00:00.000 --> 00:00:03.240
 A few days later
@@ -4633,22 +4649,52 @@ So, should we go down to the village now?
 Going down to the village is not right.
 `;
 
-    const blob = new Blob([vttContent], { type: 'text/vtt' });
-    const vttUrl = URL.createObjectURL(blob);
+const blob = new Blob([vttContent], {type:'text/vtt'});
+const vttUrl = URL.createObjectURL(blob);
 
-    const video = document.getElementById('player');
-    const track = document.createElement('track');
-    track.kind = 'subtitles';
-    track.label = 'English';
-    track.srclang = 'en';
-    track.src = vttUrl;
-    track.default = true;
-    video.appendChild(track);
+const video = document.getElementById('player');
 
-    video.textTracks[0] && (video.textTracks[0].mode = 'showing');
-    video.addEventListener('loadedmetadata', () => {
-      if (video.textTracks[0]) video.textTracks[0].mode = 'showing';
-    });
-  </script>
+function addTrack() {
+  // remove old tracks
+  while(video.firstChild) video.removeChild(video.firstChild);
+  
+  const track = document.createElement('track');
+  track.kind = 'subtitles';
+  track.label = 'English';
+  track.srclang = 'en';
+  track.src = vttUrl;
+  track.default = true;
+  video.appendChild(track);
+}
+
+function loadVideo() {
+  const url = document.getElementById('urlInput').value.trim();
+  if(!url) return alert('URL paste කරන්න!');
+
+  // Check H265
+  const isH265 = url.includes('h265') || url.includes('hevc');
+  document.getElementById('codecWarn').style.display = isH265 ? 'block' : 'none';
+
+  // Set source
+  const src = document.createElement('source');
+  src.src = url;
+  src.type = 'video/mp4';
+
+  while(video.firstChild) video.removeChild(video.firstChild);
+  video.appendChild(src);
+  addTrack();
+  video.load();
+  video.play().catch(e => console.log('Autoplay blocked:', e));
+  
+  video.addEventListener('loadedmetadata', () => {
+    if(video.textTracks[0]) video.textTracks[0].mode = 'showing';
+  }, {once:true});
+}
+
+// Enter key support
+document.getElementById('urlInput').addEventListener('keydown', e => {
+  if(e.key === 'Enter') loadVideo();
+});
+</script>
 </body>
 </html>
